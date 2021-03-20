@@ -7,7 +7,6 @@
     tools:context=".MainActivity">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
         android:layout_width="411dp"
         android:layout_height="286dp"
         android:layout_marginBottom="124dp"
@@ -17,14 +16,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="bookanimation.json"
+        app:lottie_fileName="splashanimation.json"
         app:lottie_loop="true" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/motto"
+        android:fontFamily="@font/nunito"
+        android:text="@string/welcome"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

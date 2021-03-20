@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">BookCave</string>
-    <string name="motto">Library for Bookworms :)</string>
-   <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
+    <string name="welcome">Welcome to BookCave</string>
+    <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

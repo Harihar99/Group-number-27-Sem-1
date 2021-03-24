@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/bookcavelogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomerLogin"></activity>
+        <activity android:name=".CreateAccountCustomer"></activity>
+        <activity android:name=".CreatAccountSeller" />
+        <activity android:name=".forgot_password" />
+        <activity android:name=".CustomerLogin" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

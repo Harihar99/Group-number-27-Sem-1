@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">BookCave</string>
     <string name="welcome">Welcome to BookCave</string>
+    <!--Log in-->
     <string name="login">Log In</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forget_pass">Forget Password?</string>
     <string name="create_account">Create New Account</string>
+    <string name="create_seller_account">Join us for business</string>
+    <!--Reset pass -->
+    <string name="have_account">Already have account?Log in.</string>
+    <string name="reset_pass">Reset Password</string>
+    <string name="receive_link">Receive link in email</string>
     <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

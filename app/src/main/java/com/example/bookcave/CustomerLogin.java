@@ -11,7 +11,7 @@ import android.widget.EditText;
 public class CustomerLogin extends AppCompatActivity {
 
     EditText emailInput,passwordInput;
-    Button forgotpassLink,signupLink,loginButton;
+    Button forgotpassLink,createaccLink,createaccsellerLink,loginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,13 +22,38 @@ public class CustomerLogin extends AppCompatActivity {
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
         loginButton = findViewById(R.id.loginButton);
-        signupLink = findViewById(R.id.signupLink);
+        createaccLink = findViewById(R.id.createaccLink);
+        createaccsellerLink = findViewById(R.id.createselleraccLink);
         forgotpassLink = findViewById(R.id.forgotpassLink);
 
         forgotpassLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(CustomerLogin.this, forgot_password.class);
+                startActivity(i);
+            }
+        });
+
+        createaccLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CustomerLogin.this, CreateAccountCustomer.class);
+                startActivity(i);
+            }
+        });
+
+        createaccsellerLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CustomerLogin.this, CreatAccountSeller.class);
+                startActivity(i);
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CustomerLogin.this, HomeCustomer.class);
                 startActivity(i);
             }
         });

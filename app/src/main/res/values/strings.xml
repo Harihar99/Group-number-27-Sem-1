@@ -12,5 +12,10 @@
     <string name="have_account">Already have account?Log in.</string>
     <string name="reset_pass">Reset Password</string>
     <string name="receive_link">Receive link in email</string>
+    <string name="title_activity_home_customer">HomeCustomer</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Search</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profile</string>
     <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

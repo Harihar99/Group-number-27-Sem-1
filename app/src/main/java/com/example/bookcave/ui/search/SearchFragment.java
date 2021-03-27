@@ -1,4 +1,4 @@
-package com.example.bookcave.ui.home;
+package com.example.bookcave.ui.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,16 +14,15 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.bookcave.R;
 
-public class HomeFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private SearchViewModel searchViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-
+        searchViewModel =
+                ViewModelProviders.of(this).get(SearchViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
         return root;
     }
 }

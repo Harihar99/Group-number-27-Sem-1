@@ -38,7 +38,9 @@ dependencies {
 
     //Lottie animation lib
     implementation 'com.airbnb.android:lottie:3.6.1'
-    implementation 'com.google.android.material:material:1.4.0-alpha01'
     //Material lib
+    implementation 'com.google.android.material:material:1.4.0-alpha01'
+    //Circular ImageView
+    implementation 'com.mikhaellopez:circularimageview:4.2.0'
 
 }

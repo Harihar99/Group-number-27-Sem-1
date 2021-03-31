@@ -17,7 +17,6 @@
     <string name="title_activity_home_customer">HomeCustomer</string>
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
     <!--Profile-->
     <string name="name">My name</string>

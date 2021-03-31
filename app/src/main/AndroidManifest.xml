@@ -9,9 +9,16 @@
         android:roundIcon="@mipmap/bookcavelogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".profile.HelpC"></activity>
+        <activity android:name=".profile.ContactDeveloper" />
+        <activity android:name=".profile.PaymentHistoryC" />
+        <activity android:name=".profile.OrderHistoryC" />
+        <activity android:name=".profile.Favourites" />
+        <activity android:name=".profile.MyCartCustomer" />
+        <activity android:name=".profile.ProfileCustomer" />
         <activity
             android:name=".HomeCustomer"
-            android:label="@string/title_activity_home_customer"></activity>
+            android:label="@string/title_activity_home_customer" />
         <activity android:name=".CreateAccountCustomer" />
         <activity android:name=".CreatAccountSeller" />
         <activity android:name=".forgot_password" />

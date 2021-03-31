@@ -17,6 +17,12 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.bookcave.CustomerLogin;
 import com.example.bookcave.R;
 import com.example.bookcave.forgot_password;
+import com.example.bookcave.profile.ContactDeveloper;
+import com.example.bookcave.profile.Favourites;
+import com.example.bookcave.profile.HelpC;
+import com.example.bookcave.profile.OrderHistoryC;
+import com.example.bookcave.profile.PaymentHistoryC;
+import com.example.bookcave.profile.ProfileCustomer;
 
 public class ProfileFragment extends Fragment {
 
@@ -43,6 +49,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //My profile
+                Intent i = new Intent(getActivity(), ProfileCustomer.class);
+                startActivity(i);
             }
         });
 
@@ -57,6 +65,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Favourites
+                Intent i = new Intent(getActivity(), Favourites.class);
+                startActivity(i);
             }
         });
 
@@ -64,6 +74,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Order history
+                Intent i = new Intent(getActivity(), OrderHistoryC.class);
+                startActivity(i);
             }
         });
 
@@ -71,6 +83,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Payment History
+                Intent i = new Intent(getActivity(), PaymentHistoryC.class);
+                startActivity(i);
             }
         });
 
@@ -78,6 +92,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Contact Developer
+                Intent i = new Intent(getActivity(), ContactDeveloper.class);
+                startActivity(i);
             }
         });
 
@@ -85,6 +101,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Help
+                Intent i = new Intent(getActivity(), HelpC.class);
+                startActivity(i);
             }
         });
 

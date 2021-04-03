@@ -29,5 +29,13 @@
     <string name="contact_dev">Contact Developer</string>
     <string name="about">About our app</string>
     <string name="design">design purpose</string>
+    <!--HELP-->
+    <string name="termsofserv">Terms of Service</string>
+    <string name="howtoedit">How to edit the name or toher details in the profile ? Click on Profile option and then select edit option or click on the profile name and then you can change some information there if not all info is editable then kindly email to customer support for a info change.</string>
+    <!--contact dev-->
+    <string name="tellproblem">Tell me your problem</string>
+    <string name="sevofproblem">Severity of problem</string>
+    <string name="detailaboutproblem">Details about problem you are facing:</string>
+    <string name="sendmail">Send mail</string>
     <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

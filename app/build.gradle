@@ -21,6 +21,10 @@ android {
         }
     }
 
+    viewBinding{
+        enabled=true
+    }
+
 }
 
 dependencies {
@@ -42,5 +46,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0-alpha01'
     //Circular ImageView
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
+    //Navigation
+    implementation 'androidx.navigation:navigation-fragment:2.3.4'
+    implementation 'androidx.navigation:navigation-ui:2.3.4'
 
 }

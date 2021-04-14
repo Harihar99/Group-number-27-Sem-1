@@ -7,12 +7,20 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forget_pass">Forget Password?</string>
-    <string name="create_account">Create New Account</string>
     <string name="create_seller_account">Join us for business</string>
     <!--Reset pass -->
     <string name="have_account">Already have account?Log in.</string>
     <string name="reset_pass">Reset Password</string>
     <string name="receive_link">Receive link in email</string>
+    <!--Create Account-->
+    <string name="create_n_account">Create New Account</string>
+    <string name="create_account">Create Account</string>
+    <string name="f_name">First Name</string>
+    <string name="l_name">Last Name</string>
+    <string name="ph_no">Phone no</string>
+    <string name="for_order">For order:</string>
+    <string name="address">Address</string>
+    <string name="pincode">Pincode</string>
     <!--Home page-->
     <string name="title_activity_home_customer">HomeCustomer</string>
     <string name="title_home">Home</string>
@@ -37,5 +45,20 @@
     <string name="sevofproblem">Severity of problem</string>
     <string name="detailaboutproblem">Details about problem you are facing:</string>
     <string name="sendmail">Send mail</string>
+
+    <!--For the menu of seller-->
+    <string name="title_activity_home_seller">HomeSeller</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
     <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

@@ -7,18 +7,26 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forget_pass">Forget Password?</string>
-    <string name="create_seller_account">Join us for business</string>
+    <string name="create_seller_account">Join us for business as Seller</string>
     <!--Reset pass -->
     <string name="have_account">Already have account?Log in.</string>
     <string name="reset_pass">Reset Password</string>
     <string name="receive_link">Receive link in email</string>
     <!--Create Account-->
     <string name="create_n_account">Create New Account</string>
+    <string name="create_n_s_account">Create New Seller Account</string>
     <string name="create_account">Create Account</string>
+    <string name="owner_f_name">Owner\'s First Name</string>
+    <string name="owner_l_name">Owner\'s Last Name</string>
     <string name="f_name">First Name</string>
     <string name="l_name">Last Name</string>
     <string name="ph_no">Phone no</string>
+    <string name="owner_ph_no">Owner\'s phone no</string>
     <string name="for_order">For order:</string>
+    <string name="for_owner">Owner info:</string>
+    <string name="shop_name">Shop name</string>
+    <string name="GST_no">GST number</string>
+    <string name="for_company">Company info:</string>
     <string name="address">Address</string>
     <string name="pincode">Pincode</string>
     <!--Home page-->

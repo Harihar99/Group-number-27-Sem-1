@@ -14,7 +14,6 @@
         <activity android:name=".profile.PaymentHistoryC" />
         <activity android:name=".profile.OrderHistoryC" />
         <activity android:name=".profile.Favourites" />
-        <activity android:name=".profile.MyCartCustomer" />
         <activity android:name=".profile.ProfileCustomer" />
         <activity
             android:name=".HomeCustomer"

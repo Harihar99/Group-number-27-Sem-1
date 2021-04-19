@@ -16,16 +16,6 @@
         android:background="@color/white"
         android:focusableInTouchMode="true">
 
-        <ProgressBar
-            android:id="@+id/LogInProgress"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:background="@color/white"
-            android:indeterminate="true"
-            android:visibility="gone" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,6 +26,16 @@
             android:gravity="center"
             android:paddingBottom="20dp"
             android:textColor="@color/colorPrimaryDark" />
+
+        <ProgressBar
+            android:id="@+id/LogInProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/white"
+            android:indeterminate="true"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"

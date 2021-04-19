@@ -1,14 +1,18 @@
 package com.example.bookcave;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.example.bookcave.extras.LogoutDialog;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeCustomer extends AppCompatActivity {
 
@@ -27,4 +31,22 @@ public class HomeCustomer extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbarmenu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logoutButtonHeader:
+                openDialog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    public void openDialog(){
+        LogoutDialog logoutdialog=new LogoutDialog();
+        logoutdialog.show(getSupportFragmentManager(),"Log out Dialog");
+    }
 }

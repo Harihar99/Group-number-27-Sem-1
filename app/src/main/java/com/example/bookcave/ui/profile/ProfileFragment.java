@@ -6,17 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.bookcave.CustomerLogin;
 import com.example.bookcave.R;
-import com.example.bookcave.forgot_password;
 import com.example.bookcave.profile.ContactDeveloper;
 import com.example.bookcave.profile.Favourites;
 import com.example.bookcave.profile.HelpC;

@@ -64,7 +64,7 @@ public class forgot_password extends AppCompatActivity {
         backtolgLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(forgot_password.this, CustomerLogin.class);
+                Intent i = new Intent(forgot_password.this, HomeSeller.class);
                 startActivity(i);
             }
         });

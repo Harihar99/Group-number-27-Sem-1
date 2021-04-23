@@ -53,8 +53,6 @@
     <string name="sevofproblem">Severity of problem</string>
     <string name="detailaboutproblem">Details about problem you are facing:</string>
     <string name="sendmail">Send mail</string>
-
-    <!--For the menu of seller-->
     <string name="title_activity_home_seller">HomeSeller</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -68,5 +66,6 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="home_second">Home Second</string>
+
     <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

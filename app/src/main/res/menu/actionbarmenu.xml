@@ -6,7 +6,7 @@
         android:id="@+id/logoutButtonHeader"
         android:title="@string/log_out"
         app:showAsAction="always"
-        android:icon="@drawable/logouticon"
+        android:icon="@drawable/logouticonwhite"
         />
 
 </menu>

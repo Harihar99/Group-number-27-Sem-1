@@ -13,18 +13,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CustomerLogin extends AppCompatActivity {
-
+    String userid;
     EditText emailInput,passwordInput;
     Button forgotpassLink,createaccLink,createaccsellerLink,loginButton;
     ProgressBar LogInProgress;
-    FirebaseAuth fAuth;
-    FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseAuth fAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,7 @@ public class CustomerLogin extends AppCompatActivity {
         createaccLink = findViewById(R.id.createaccLink);
         createaccsellerLink = findViewById(R.id.createselleraccLink);
         forgotpassLink = findViewById(R.id.forgotpassLink);
-
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -51,9 +55,12 @@ public class CustomerLogin extends AppCompatActivity {
                     Intent i = new Intent(CustomerLogin.this, HomeCustomer.class);
                     startActivity(i);
                     finish();
+                } else{
+                    Toast.makeText(CustomerLogin.this, "firebase user -"+mFirebaseUser, Toast.LENGTH_SHORT).show();
                 }
             }
         };
+
         forgotpassLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +80,6 @@ public class CustomerLogin extends AppCompatActivity {
         createaccsellerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* Intent i = new Intent(CustomerLogin.this, CreatAccountSeller.class);*/
                 Intent i = new Intent(CustomerLogin.this, CreatAccountSeller.class);
                 startActivity(i);
             }
@@ -109,12 +115,31 @@ public class CustomerLogin extends AppCompatActivity {
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(CustomerLogin.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(CustomerLogin.this, HomeCustomer.class);
-                            startActivity(intent);
-                            finish();
-                            loginButton.setText("Sign In");
+                        if (task.isSuccessful())
+                        {
+
+                            userid = fAuth.getCurrentUser().getUid();
+                            DocumentReference typeref = db.collection("Users").document(userid);
+                            typeref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        if(documentSnapshot.exists()){
+                                            String type= documentSnapshot.getString("usertype");
+                                            Toast.makeText(CustomerLogin.this, "Logged in Successfully as "+type, Toast.LENGTH_SHORT).show();
+                                            if(type.equals("Customer")){
+                                                Intent intent = new Intent(CustomerLogin.this, HomeCustomer.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }else if(type.equals("Seller")){
+                                                Intent intent = new Intent(CustomerLogin.this, HomeSeller.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                        }
+                                        loginButton.setText("Sign In");
+                                }
+                            });
+
                         } else {
                             String errorMessage = task.getException().getMessage();
                             Toast.makeText(CustomerLogin.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();

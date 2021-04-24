@@ -28,6 +28,16 @@
             android:fontFamily="@font/nunito"
             android:textSize="22sp"/>
 
+        <ProgressBar
+            android:id="@+id/createcProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/white"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp"/>

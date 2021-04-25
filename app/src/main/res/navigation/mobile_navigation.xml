@@ -32,12 +32,45 @@
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.bookcave.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_addbook"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_removebooks"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_booklist"
+        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_booklist"
+        tools:layout="@layout/fragment_slideshow" />
+
+
+    <fragment
+        android:id="@+id/nav_myprofile"
+        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_current_order"
+        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_current_order"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_order_history"
+        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_givefeedback"
+        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_feedback"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_aboutapp"
+        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_about"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

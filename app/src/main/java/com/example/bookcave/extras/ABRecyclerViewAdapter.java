@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.bookcave.AddBook;
 import com.example.bookcave.R;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class ABRecyclerViewAdapter extends RecyclerView.Adapter<ABRecyclerViewAd
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(mContext , ABRecyclerViewAdapter.this.getClass());
+                Intent i = new Intent(mContext , AddBook.class);
                 int pos = viewHolder.getAdapterPosition();
                 i.putExtra("book_title" ,mData.get(pos).getTitle());
                 i.putExtra("book_author" ,mData.get(pos).getAuthors());
@@ -55,7 +56,6 @@ public class ABRecyclerViewAdapter extends RecyclerView.Adapter<ABRecyclerViewAd
                 i.putExtra("book_buy" ,mData.get(pos).getBuy());
                 i.putExtra("book_preview" ,mData.get(pos).getPreview());
                 i.putExtra("book_thumbnail" ,mData.get(pos).getThumbnail());
-
 
                 mContext.startActivity(i);
             }
@@ -74,7 +74,9 @@ public class ABRecyclerViewAdapter extends RecyclerView.Adapter<ABRecyclerViewAd
         Toast.makeText(mContext, "", Toast.LENGTH_SHORT).show();
 
         //load image from internet and set it into imageView using Glide
-        Glide.with(mContext).load(book.getThumbnail()).apply(options).into(holder.ivThumbnail);
+        Glide.with(mContext).load(book.getThumbnail()).placeholder(R.drawable.loading_shape).dontAnimate().into(holder.tvThumbnail);
+        //Glide.with(mContext).load(book.getThumbnail()).into(holder.tvThumbnail);
+        //Glide.with(mContext).load(book.getThumbnail()).apply(options).into(holder.tvThumbnail);
 
     }
 
@@ -85,13 +87,13 @@ public class ABRecyclerViewAdapter extends RecyclerView.Adapter<ABRecyclerViewAd
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView ivThumbnail ;
+        ImageView tvThumbnail ;
         TextView tvTitle , tvCategory , tvPrice , tvAuthor;
         LinearLayout container ;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            ivThumbnail = itemView.findViewById(R.id.thumbnail);
+            tvThumbnail = itemView.findViewById(R.id.thumbnail);
             tvTitle = itemView.findViewById(R.id.title);
             tvAuthor = itemView.findViewById(R.id.author);
             tvCategory = itemView.findViewById(R.id.category);

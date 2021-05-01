@@ -13,7 +13,6 @@
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:background="@drawable/loading_shape"
-        android:contentDescription="thumbnail"
         />
 
     <LinearLayout
@@ -48,8 +47,7 @@
             android:layout_marginBottom="5dp"
             android:text="price"
             android:textSize="13sp"
-            android:textColor="#fff"
-            android:textStyle="bold"
+            android:textColor="#000"
             android:gravity="center" />
 
         <TextView
@@ -60,11 +58,6 @@
             android:text="author"
             android:maxLines="2"
             />
-        <Button
-            android:id="@+id/bookthis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Order this book"/>
     </LinearLayout>
 
 </LinearLayout>

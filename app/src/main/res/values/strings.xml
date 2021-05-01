@@ -89,6 +89,11 @@
     <string name="update_det">Update details</string>
     <string name="verifyemail">Verify your email*</string>
     <string name="updansave">Update and Save changes</string>
+    <string name="addbook">Add book to selling list</string>
+    <string name="quan_ava">Quantities available at your shop</string>
+    <string name="urprice">Your selling price</string>
+    <string name="rentprice">Renting price</string>
+    <string name="delicharges">Delivery charges</string>
 
     <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

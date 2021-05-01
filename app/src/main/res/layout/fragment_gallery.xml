@@ -22,6 +22,7 @@
             android:paddingStart="20dp"
             android:hint="@string/searchhere"
             android:textColorHint="#999999"
+            android:maxLines="1"
             android:textSize="20sp" />
 
         <ImageButton

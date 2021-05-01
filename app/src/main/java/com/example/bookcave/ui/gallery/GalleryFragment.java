@@ -86,6 +86,7 @@ public class GalleryFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         String title ="";
                         String author ="";
+                        String bookid= "";
                         String publishedDate = "NoT Available";
                         String description = "No Description";
                         int pageCount = 1000;
@@ -109,6 +110,9 @@ public class GalleryFragment extends Fragment {
                                     }else {
                                         author = authors.getString(0) + "|" +authors.getString(1);
                                     }
+                                    JSONObject industryIdentifiers = item.getJSONObject("industryIdentifiers");
+                                    //bookid = industryIdentifiers.getString("identifier");
+                                    //searchthebook
 
                                     publishedDate = volumeInfo.getString("publishedDate");
                                     pageCount = volumeInfo.getInt("pageCount");
@@ -129,9 +133,6 @@ public class GalleryFragment extends Fragment {
 
                                 mBooks.add(new Book(title , author , publishedDate , description ,categories
                                         ,thumbnail,buy,previewLink,price,pageCount,url));
-
-
-//write adapter code from mwsc
 
                                 mAdapter = new ABRecyclerViewAdapter(getActivity() , mBooks);
                                 result_list.setAdapter(mAdapter);

@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/bookcavelogo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".profile.AboutApp"></activity>
         <activity
             android:name=".HomeSeller"
             android:label="@string/title_activity_home_seller"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".profile.HelpC" />
         <activity android:name=".profile.ContactDeveloper" />
         <activity android:name=".profile.PaymentHistoryC" />

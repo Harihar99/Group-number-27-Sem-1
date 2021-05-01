@@ -1,16 +1,20 @@
-package com.example.bookcave.profile;
+package com.example.bookcave.ui.contactdev;
+
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.example.bookcave.R;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,8 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class ContactDeveloper extends AppCompatActivity {
-
+public class ContactDeveloperFragment extends Fragment {
     Spinner spinner;
     String severity,a;
     EditText username,problemdesc;
@@ -30,16 +33,17 @@ public class ContactDeveloper extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_developer);
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.activity_contact_developer, container, false);
+
         fAuth = FirebaseAuth.getInstance();
         a = fAuth.getCurrentUser().getUid();
-        spinner = findViewById(R.id.severityspinner);
-        username = findViewById(R.id.user_name);
-        problemdesc = findViewById(R.id.problem_description);
-        sendmail = findViewById(R.id.sendmail);
+        spinner = root.findViewById(R.id.severityspinner);
+        username = root.findViewById(R.id.user_name);
+        problemdesc = root.findViewById(R.id.problem_description);
+        sendmail = root.findViewById(R.id.sendmail);
 
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Very Low");
@@ -48,7 +52,7 @@ public class ContactDeveloper extends AppCompatActivity {
         arrayList.add("High");
         arrayList.add("Severe");
         arrayList.add("Urgent");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ContactDeveloper.this,android.R.layout.simple_spinner_item, arrayList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(),android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
@@ -95,5 +99,7 @@ public class ContactDeveloper extends AppCompatActivity {
 
             }
         });
+        return root;
     }
 }
+

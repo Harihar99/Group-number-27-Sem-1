@@ -1,5 +1,4 @@
-package com.example.bookcave.ui.slideshow;
-
+package com.example.bookcave.ui.seller_about;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +9,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.bookcave.R;
 
-public class SlideshowFragment extends Fragment {
-
+public class AboutFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-
+        View root = inflater.inflate(R.layout.fragment_about, container, false);
         return root;
     }
 }
+

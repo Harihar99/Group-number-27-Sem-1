@@ -65,12 +65,12 @@
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_givefeedback"
-        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
+        android:name="com.example.bookcave.ui.contactdev.ContactDeveloperFragment"
         android:label="@string/menu_feedback"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/activity_contact_developer" />
     <fragment
         android:id="@+id/nav_aboutapp"
-        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
+        android:name="com.example.bookcave.ui.seller_about.AboutFragment"
         android:label="@string/menu_about"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_about" />
 </navigation>

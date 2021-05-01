@@ -78,6 +78,10 @@
     <string name="menu_history">Order history</string>
     <string name="menu_current_order">Current orders</string>
     <string name="user">User</string>
+    <string name="searchhere">Search Book to add</string>
+
+    <string name="Failed_to_Load_data">Please check your Internet Connection</string>
+    <string name="NO_RESULT">No matching results</string>
 
     <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

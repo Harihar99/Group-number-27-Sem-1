@@ -14,7 +14,6 @@
             android:name=".HomeSeller"
             android:label="@string/title_activity_home_seller"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".profile.HelpC" />
         <activity android:name=".profile.ContactDeveloper" />
         <activity android:name=".profile.PaymentHistoryC" />
         <activity android:name=".profile.OrderHistoryC" />

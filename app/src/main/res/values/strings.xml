@@ -45,9 +45,6 @@
     <string name="contact_dev">Contact Developer</string>
     <string name="about">About our app</string>
     <string name="design">design purpose</string>
-    <!--HELP-->
-    <string name="termsofserv">Terms of Service</string>
-    <string name="howtoedit">How to edit the name or toher details in the profile ? Click on Profile option and then select edit option or click on the profile name and then you can change some information there if not all info is editable then kindly email to customer support for a info change.</string>
     <!--contact dev-->
     <string name="tellproblem">Tell me your problem</string>
     <string name="sevofproblem">Severity of problem</string>
@@ -82,6 +79,16 @@
 
     <string name="Failed_to_Load_data">Please check your Internet Connection</string>
     <string name="NO_RESULT">No matching results</string>
+    <!--ABOUT-->
+    <string name="about_para">This app was developed as MCA project SEM I by Student of IMCC Pune :</string>
+    <string name="about_para1">App serves the purpose to be a medium between small book shop in city of pune and customers.Due to covid, Shops are closed because of  which it is hard to make living for small shop owners and slo for customers to buy.</string>
+    <string name="about_para10">This app will give opportunity to them to make living for small shop owner.</string>
+    <string name="about_para11">Also will give booknerds the books they want at home.</string>
+    <string name="myemail">Atharva.ikhar@yahoo.com</string>
+    <!--UPDATE INFO-->
+    <string name="update_det">Update details</string>
+    <string name="verifyemail">Verify your email*</string>
+    <string name="updansave">Update and Save changes</string>
 
     <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

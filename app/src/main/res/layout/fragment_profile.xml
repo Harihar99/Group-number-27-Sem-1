@@ -77,36 +77,6 @@
         android:layout_marginTop="5dp"/>
 
     <LinearLayout
-        android:id="@+id/linearl1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/carticon"
-            android:layout_marginStart="30dp"
-            android:contentDescription="@string/my_cart" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/my_cart"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="370dp"
-        android:layout_height="1dp"
-        android:background="@color/darkBlue"
-        android:layout_marginTop="5dp"/>
-
-    <LinearLayout
         android:id="@+id/linearl2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -235,13 +205,13 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/helpicon"
+                    android:src="@drawable/about_36"
                     android:layout_marginStart="30dp"
                     android:contentDescription="@string/help" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/help"
+                    android:text="@string/about"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_marginTop="5dp"

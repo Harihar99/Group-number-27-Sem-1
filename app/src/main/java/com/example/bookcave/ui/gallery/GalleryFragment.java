@@ -86,14 +86,15 @@ public class GalleryFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         String title ="";
                         String author ="";
-                        String bookid= "";
+                        String[] isbnar=new String[2];
+                        String isbn= "empty";
                         String publishedDate = "NoT Available";
                         String description = "No Description";
                         int pageCount = 1000;
-                        String categories = "No categories Available ";
+                        String categories = "Non categorized ";
                         String buy ="";
 
-                        String price = "NOT_FOR_SALE";
+                        String price = "000 INR";
                         try {
                             JSONArray items = response.getJSONArray("items");
 
@@ -110,9 +111,6 @@ public class GalleryFragment extends Fragment {
                                     }else {
                                         author = authors.getString(0) + "|" +authors.getString(1);
                                     }
-                                    JSONObject industryIdentifiers = item.getJSONObject("industryIdentifiers");
-                                    //bookid = industryIdentifiers.getString("identifier");
-                                    //searchthebook
 
                                     publishedDate = volumeInfo.getString("publishedDate");
                                     pageCount = volumeInfo.getInt("pageCount");
@@ -121,18 +119,21 @@ public class GalleryFragment extends Fragment {
                                     price = listPrice.getString("amount") + " " +listPrice.getString("currencyCode");
                                     description = volumeInfo.getString("description");
                                     buy = saleInfo.getString("buyLink");
+                                    isbn = item.getString("id");
                                     categories = volumeInfo.getJSONArray("categories").getString(0);
 
                                 }catch (Exception e){
                                         Log.d("TAG", e.toString());
                                 }
 
+
+
                                 String thumbnail = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
                                 String previewLink = volumeInfo.getString("previewLink");
                                 String url = volumeInfo.getString("infoLink");
 
                                 mBooks.add(new Book(title , author , publishedDate , description ,categories
-                                        ,thumbnail,buy,previewLink,price,pageCount,url));
+                                        ,thumbnail,buy,previewLink,price,pageCount,url,isbn));
 
                                 mAdapter = new ABRecyclerViewAdapter(getActivity() , mBooks);
                                 result_list.setAdapter(mAdapter);

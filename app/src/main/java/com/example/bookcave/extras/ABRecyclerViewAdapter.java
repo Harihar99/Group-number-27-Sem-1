@@ -56,6 +56,7 @@ public class ABRecyclerViewAdapter extends RecyclerView.Adapter<ABRecyclerViewAd
                 i.putExtra("book_buy" ,mData.get(pos).getBuy());
                 i.putExtra("book_preview" ,mData.get(pos).getPreview());
                 i.putExtra("book_thumbnail" ,mData.get(pos).getThumbnail());
+                i.putExtra("book_isbn" ,mData.get(pos).getmIsbn());
 
                 mContext.startActivity(i);
             }

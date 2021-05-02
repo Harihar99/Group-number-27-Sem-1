@@ -10,11 +10,16 @@ public class Book {
     private String mBuy;
     private String mPreview;
     private String mPrice;
+    private String mIsbn;
     private int pageCount;
     private String mUrl;
 
     public String getmUrl() {
         return mUrl;
+    }
+
+    public String getmIsbn() {
+        return mIsbn;
     }
 
     public int getPageCount() {
@@ -58,7 +63,7 @@ public class Book {
     }
 
     public Book(String mTitle, String mAuthors, String mPublishedDate, String mDescription, String mCategories, String mThumbnail,
-                String mBuy, String mPreview , String price,int pageCount , String mUrl) {
+                String mBuy, String mPreview , String price,int pageCount , String mUrl, String mIsbn) {
         this.mTitle = mTitle;
         this.mAuthors = mAuthors;
         this.mPublishedDate = mPublishedDate;
@@ -70,6 +75,7 @@ public class Book {
         this.mPrice = price;
         this.pageCount = pageCount;
         this.mUrl = mUrl;
+        this.mIsbn = mIsbn;
     }
 
 }

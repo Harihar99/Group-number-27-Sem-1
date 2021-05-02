@@ -43,9 +43,9 @@
 
     <fragment
         android:id="@+id/nav_booklist"
-        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
+        android:name="com.example.bookcave.ui.seller_booklist.BooklistFragment"
         android:label="@string/menu_booklist"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_booklist" />
 
 
     <fragment

@@ -71,6 +71,7 @@ public class GalleryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mBooks.clear();
+
                 search();
             }
         });
@@ -79,7 +80,7 @@ public class GalleryFragment extends Fragment {
     }
 
     private void parseJson(String key) {
-
+        Toast.makeText(getActivity(), "Searching through web", Toast.LENGTH_SHORT).show();
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, key.toString(), null,
                 new Response.Listener<JSONObject>() {
                     @Override

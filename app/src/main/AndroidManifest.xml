@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".extras.PreviewBook"></activity>
+        <activity android:name=".BookInfoOrder"></activity>
+        <activity android:name=".BookInfo" />
+        <activity android:name=".extras.PreviewBook" />
         <activity android:name=".AddBook" />
         <activity android:name=".profile.AboutApp" />
         <activity

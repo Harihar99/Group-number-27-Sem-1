@@ -8,9 +8,8 @@
     android:padding="8dp"
     android:id="@+id/container">
 
-
     <ImageView
-        android:id="@+id/row_thumbnail"
+        android:id="@+id/thumbnail"
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:background="@drawable/loading_shape"
@@ -23,7 +22,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/row_title"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="3"
@@ -32,35 +31,33 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/row_author"
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:text="category" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="price"
+            android:textSize="13sp"
+            android:textColor="#000"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="author"
             android:maxLines="2"
             />
-
-        <TextView
-            android:id="@+id/row_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="price"
-            android:textSize="19sp"
-            android:textColor="#000"
-            android:gravity="center" />
-        <TextView
-            android:id="@+id/row_quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="quantity"
-            android:textSize="13sp"
-            android:textColor="#000"
-            android:gravity="center" />
-
-
     </LinearLayout>
+
 </LinearLayout>

@@ -14,18 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.bookcave.AddBook;
+import com.example.bookcave.BookInfo;
 import com.example.bookcave.R;
 
 import java.util.List;
 
-public class ABRecyclerViewAdapter extends RecyclerView.Adapter<ABRecyclerViewAdapter.MyViewHolder> {
+public class SBRecyclerViewAdapter extends RecyclerView.Adapter<SBRecyclerViewAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<Book> mData;
     private RequestOptions options;
 
-    public ABRecyclerViewAdapter(Context mContext, List<Book> mData)
+    public SBRecyclerViewAdapter(Context mContext, List<Book> mData)
     {
         this.mContext = mContext;
         this.mData = mData;
@@ -38,13 +38,13 @@ public class ABRecyclerViewAdapter extends RecyclerView.Adapter<ABRecyclerViewAd
 
         View view;
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        view = inflater.inflate(R.layout.row_book_api_result, parent , false);
+        view = inflater.inflate(R.layout.row_book_search_main, parent , false);
         final MyViewHolder viewHolder =  new MyViewHolder(view);
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(mContext , AddBook.class);
+                Intent i = new Intent(mContext , BookInfo.class);
                 int pos = viewHolder.getAdapterPosition();
                 i.putExtra("book_title" ,mData.get(pos).getTitle());
                 i.putExtra("book_author" ,mData.get(pos).getAuthors());
@@ -56,6 +56,7 @@ public class ABRecyclerViewAdapter extends RecyclerView.Adapter<ABRecyclerViewAd
                 i.putExtra("book_preview" ,mData.get(pos).getPreview());
                 i.putExtra("book_thumbnail" ,mData.get(pos).getThumbnail());
                 i.putExtra("book_isbn" ,mData.get(pos).getmIsbn());
+                i.putExtra("book_price",mData.get(pos).getPrice());
 
                 mContext.startActivity(i);
             }
@@ -73,8 +74,6 @@ public class ABRecyclerViewAdapter extends RecyclerView.Adapter<ABRecyclerViewAd
         holder.tvCategory.setText(book.getCategories());
         //load image from internet and set it into imageView using Glide
         Glide.with(mContext).load(book.getThumbnail()).placeholder(R.drawable.loading_shape).dontAnimate().into(holder.tvThumbnail);
-        //Glide.with(mContext).load(book.getThumbnail()).into(holder.tvThumbnail);
-        //Glide.with(mContext).load(book.getThumbnail()).apply(options).into(holder.tvThumbnail);
 
     }
 

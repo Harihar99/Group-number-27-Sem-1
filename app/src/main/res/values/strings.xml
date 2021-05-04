@@ -95,5 +95,10 @@
     <string name="rentprice">Renting price</string>
     <string name="delicharges">Delivery charges</string>
 
+    <string name="search_ph">Search Books by name,author</string>
+    <string name="buybook">Buy Book</string>
+    <string name="rentbook">Rent Book</string>
+    <string name="read_preview">Read Book preview</string>
+
     <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

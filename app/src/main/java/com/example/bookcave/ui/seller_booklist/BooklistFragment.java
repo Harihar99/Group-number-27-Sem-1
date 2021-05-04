@@ -1,10 +1,10 @@
 package com.example.bookcave.ui.seller_booklist;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.bookcave.R;
 import com.example.bookcave.extras.SellingBook;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -46,7 +47,7 @@ public class BooklistFragment extends Fragment {
 
     private void LoadList(String userid) {
 
-        Query query=db.collection("SellingList").whereEqualTo("sellerid", userid);;
+        Query query=db.collection("SellingList").whereEqualTo("sellerid", userid);
 
         FirestoreRecyclerOptions<SellingBook> options = new FirestoreRecyclerOptions.Builder<SellingBook>().setQuery(query, SellingBook.class).build();
 
@@ -67,7 +68,7 @@ public class BooklistFragment extends Fragment {
                 viewHolder.row_title.setText(model.getTitle());
                 viewHolder.row_author.setText(model.getAuthor());
                 //load image from internet and set it into imageView using Glide
-                //Glide.with(viewHolder.row_thumbnail.getContext()).load(thumbnail).placeholder(R.drawable.loading_shape).dontAnimate().into(viewHolder.row_thumbnail);
+               Glide.with(getContext()).load(model.getThumbnail()).placeholder(R.drawable.loading_shape).dontAnimate().into(viewHolder.row_thumbnail);
 
             }
         };
@@ -77,13 +78,13 @@ public class BooklistFragment extends Fragment {
 
     private class SellingBooksViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        Image row_thumbnail;
+        ImageView row_thumbnail;
         TextView row_title,row_author,row_price,row_quantity;
 
         public SellingBooksViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
-            //row_thumbnail= mView.findViewById(R.id.row_thumbnail);
+            row_thumbnail= mView.findViewById(R.id.row_thumbnail);
             row_title=mView.findViewById(R.id.row_title);
             row_author=mView.findViewById(R.id.row_author);
             row_price=mView.findViewById(R.id.row_price);
@@ -92,8 +93,4 @@ public class BooklistFragment extends Fragment {
         }
     }
 
-    private void parseJson(String key) {
-
-
-    }
 }

@@ -26,8 +26,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.bookcave.R;
 import com.example.bookcave.extras.Book;
 import com.example.bookcave.extras.SBRecyclerViewAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +46,10 @@ public class SearchFragment extends Fragment {
     private RequestQueue mRequestQueue;
     private RecyclerView recyclerview_main;
     private SBRecyclerViewAdapter mAdapter;
-    ToggleButton toggleButton;
+    private FirebaseFirestore firebaseFirestore;
+    private FirestoreRecyclerAdapter adapter;
+    private Query query;
+    private ToggleButton toggleButton;
     //fs
     private FirebaseAuth fAuth;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -88,10 +93,9 @@ public class SearchFragment extends Fragment {
                     if(search_main.getText().toString().equals(""))
                     {
                         Toast.makeText(getActivity(),"Please enter something to search",Toast.LENGTH_SHORT).show();
-                        return;
-
                     }else{
-                            searchFirestore();
+                        Toast.makeText(getActivity(),"Searching -"+search_main.getText().toString(),Toast.LENGTH_SHORT).show();
+                        searchFirestore(search_main.getText().toString());
                     }
                     }
             }
@@ -99,8 +103,10 @@ public class SearchFragment extends Fragment {
         return root;
     }
 
-    private void searchFirestore() {
-
+    private void searchFirestore(String input_given) {
+        //Insert the code for searching a book in firebase
+       // firebaseFirestore.collection("SellingList").orderBy("search_keywords")
+              //  .startAt(input_given).endAt("").get().addOnCompleteListener();
     }
 
     private void parseJson(String key) {

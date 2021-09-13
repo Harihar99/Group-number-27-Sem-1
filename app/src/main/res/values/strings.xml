@@ -100,6 +100,4 @@
     <string name="rentbook">Rent Book</string>
     <string name="read_preview">Read Book preview</string>
     <string name="conti">Continue</string>
-
-    <!-- PLEASE IGNORE THIS LINE <string name="personal_github_token_iatharva">be8d3bcd68fd03ad0f9763efa7a110427caccae1</string>-->
 </resources>

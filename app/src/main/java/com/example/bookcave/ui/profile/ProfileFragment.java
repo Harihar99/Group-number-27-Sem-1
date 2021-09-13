@@ -16,7 +16,6 @@ import com.example.bookcave.CustomerLogin;
 import com.example.bookcave.R;
 import com.example.bookcave.profile.AboutApp;
 import com.example.bookcave.profile.ContactDeveloper;
-import com.example.bookcave.profile.Favourites;
 import com.example.bookcave.profile.OrderHistoryC;
 import com.example.bookcave.profile.PaymentHistoryC;
 import com.example.bookcave.profile.ProfileCustomer;
@@ -45,7 +44,6 @@ public class ProfileFragment extends Fragment {
 
         profileName = root.findViewById(R.id.profileName);
         linearl0=root.findViewById(R.id.linearl0);
-        linearl2=root.findViewById(R.id.linearl2);
         linearl3=root.findViewById(R.id.linearl3);
         linearl4=root.findViewById(R.id.linearl4);
         linearl5=root.findViewById(R.id.linearl5);
@@ -72,15 +70,6 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 //My profile
                 Intent i = new Intent(getActivity(), ProfileCustomer.class);
-                startActivity(i);
-            }
-        });
-
-        linearl2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Favourites
-                Intent i = new Intent(getActivity(), Favourites.class);
                 startActivity(i);
             }
         });

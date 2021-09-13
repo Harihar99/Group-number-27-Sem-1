@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
@@ -32,14 +33,38 @@ public class HomecFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView recyler_home_page_books;
     private FirestoreRecyclerAdapter adapter;
+    private Query query;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_homec, container, false);
         firebaseFirestore=FirebaseFirestore.getInstance();
         recyler_home_page_books=root.findViewById(R.id.recyler_home_page_books);
-        //showNewAvailables();
-        Query query=firebaseFirestore.collection("SellingList");
+        final SwipeRefreshLayout pullToRefresh = root.findViewById(R.id.pullToRefresh);
+        showNewAvailables();
+        recyler_home_page_books.setHasFixedSize(true);
+        recyler_home_page_books.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyler_home_page_books.setAdapter(adapter);
+        //End of adapter code
+
+        ImageSlider slider=root.findViewById(R.id.slider);
+        List<SlideModel> sliderModels=new ArrayList<>();
+        sliderModels.add(new SlideModel("https://i.imgur.com/IGIu5Fb.jpg"));
+        sliderModels.add(new SlideModel("https://i.imgur.com/PObprBN.jpg"));
+        slider.setImageList(sliderModels, true);
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                showNewAvailables();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+        return root;
+    }
+
+    private void showNewAvailables() {
+        query=firebaseFirestore.collection("SellingList");
 
         FirestoreRecyclerOptions<SellingBook> options = new FirestoreRecyclerOptions.Builder<SellingBook>()
                 .setQuery(query, SellingBook.class)
@@ -76,10 +101,11 @@ public class HomecFragment extends Fragment {
                         i.putExtra("book_cat",model.getCategory());
 
                         i.putExtra("link",model.getPreview());
-                        i.putExtra("seller",model.getThumbnail());
+                        i.putExtra("seller",model.getSellerid());
                         i.putExtra("rp",model.getRentingprice());
                         i.putExtra("sp",model.getSellingprice());
                         i.putExtra("dc",model.getDeliverycharges());
+                        i.putExtra("qu",model.getQuantities());
 
                         startActivity(i);
                     }
@@ -87,22 +113,6 @@ public class HomecFragment extends Fragment {
 
             }
         };
-        recyler_home_page_books.setHasFixedSize(true);
-        recyler_home_page_books.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyler_home_page_books.setAdapter(adapter);
-        //End of adapter code
-
-        ImageSlider slider=root.findViewById(R.id.slider);
-        List<SlideModel> sliderModels=new ArrayList<>();
-        sliderModels.add(new SlideModel("https://i.imgur.com/IGIu5Fb.jpg"));
-        sliderModels.add(new SlideModel("https://i.imgur.com/PObprBN.jpg"));
-        slider.setImageList(sliderModels, true);
-
-
-        return root;
-    }
-
-    private void showNewAvailables() {
     }
 
     private class SellingBooksViewHolder extends RecyclerView.ViewHolder {

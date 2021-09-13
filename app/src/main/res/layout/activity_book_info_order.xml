@@ -68,6 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
+                        android:textStyle="bold"
                         android:text="not given INR (on web)"
                         android:fontFamily="@font/nunito"
                         android:textSize="18sp"
@@ -94,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:gravity="left"
                 android:text="Description"
+                android:textStyle="bold"
                 android:textSize="17dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/nunito" />
@@ -113,6 +115,7 @@
                     android:layout_width="wrap_content"
                     android:gravity="left"
                     android:text="Seller Details:"
+                    android:textStyle="bold"
                     android:textSize="17dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/nunito" />
@@ -155,7 +158,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/round_corner"
                 android:text="@string/read_preview"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:layout_marginBottom="60sp"/>
 
         </LinearLayout>
         </ScrollView>
@@ -190,7 +194,8 @@
                 android:text="@string/rentbook"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                />
         </FrameLayout>
     </RelativeLayout>
 </LinearLayout>

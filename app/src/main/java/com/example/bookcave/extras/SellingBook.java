@@ -1,16 +1,24 @@
 package com.example.bookcave.extras;
 
 public class SellingBook {
+
+    //unique IDs
     private String bookid;
     private String sellerid;
+
+    //Book integer details
     private int quantities;
     private int sellingprice;
     private int rentingprice;
     private int deliverycharges;
+
+    //Book string details
     private String title;
     private String author;
     private String description;
     private String category;
+
+    //Links
     private String thumbnail;
     private String preview;
 

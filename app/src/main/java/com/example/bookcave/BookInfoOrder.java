@@ -8,12 +8,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,7 +20,7 @@ public class BookInfoOrder extends AppCompatActivity {
 
     ImageView bthumbnail;
     TextView btitle,bcategory,bprice,bauthor,bdesc,sname,rp,dc,sadd;
-    Button bshow;
+    Button bshow,buybook,rentbook;
     String sn,sa;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -42,6 +40,8 @@ public class BookInfoOrder extends AppCompatActivity {
         sadd=findViewById(R.id.sadd);
         rp=findViewById(R.id.rp);
         dc=findViewById(R.id.dc);
+        buybook=findViewById(R.id.buybook);
+        rentbook=findViewById(R.id.rentbook);
 
 
         Intent intent=getIntent();
@@ -54,12 +54,64 @@ public class BookInfoOrder extends AppCompatActivity {
         final String book_cat = intent.getStringExtra("book_cat");
 
         final String sellerid=intent.getStringExtra("seller");
-        final String sprice = intent.getStringExtra("sp");
-        final String rprice = intent.getStringExtra("rp");
-        final String dprice = intent.getStringExtra("dc");
+        final int sprice = intent.getIntExtra("sp", 0);
+        final int rprice = intent.getIntExtra("rp", 0);
+        final int dprice = intent.getIntExtra("dc", 0);
+        final int quantities = intent.getIntExtra("qu", 0);
 
 
         bshow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(preview);
+               Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+               startActivity(intent);
+            }
+        });
+
+            DocumentReference docRef = db.collection("Users").document(sellerid);
+
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                        sn = documentSnapshot.getString("shop");
+                        sa = documentSnapshot.getString("address");
+                        sname.setText(sn);
+                        sadd.setText(sa);
+                }
+                }
+            });
+
+        btitle.setText(book_title);
+        bcategory.setText(book_cat);
+        bauthor.setText(book_author);
+        bdesc.setText(book_desc);
+        bprice.setText(String.format("Selling @ %s INR", sprice));
+        rp.setText(String.format("Renting price: %s INR per day", rprice));
+        dc.setText(String.format("Delivery charges: %s INR", dprice));
+
+        Glide.with(BookInfoOrder.this).load(image).placeholder(R.drawable.loading_shape).dontAnimate().into(bthumbnail);
+
+        buybook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(BookInfoOrder.this,BuyBook.class);
+                i.putExtra("book_id" ,book_id);
+                i.putExtra("book_author" ,book_author);
+                i.putExtra("book_title",book_title);
+                i.putExtra("book_thumbnail",image);
+
+
+                i.putExtra("seller",sellerid);
+                i.putExtra("rp",rprice);
+                i.putExtra("sp",sprice);
+                i.putExtra("dc",dprice);
+                i.putExtra("qu",quantities);
+                startActivity(i);
+            }
+        });
+        rentbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Uri uri = Uri.parse(preview);
@@ -67,31 +119,5 @@ public class BookInfoOrder extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        DocumentReference docRef = db.collection("Users").document(sellerid);
-
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                        sn = (String) document.getString("shop");
-                        sa = (String) document.getString("address");
-
-                }
-            }
-        });
-
-        sname.setText(sn);
-        sadd.setText(sa);
-        btitle.setText(book_title);
-        bcategory.setText(book_cat);
-        bprice.setText("Selling @"+sprice);
-        bauthor.setText(book_author);
-        bdesc.setText(book_desc);
-        rp.setText("Renting price:"+rprice+" INR per day");
-        dc.setText("Delivery charges:"+dprice+" INR");
-
-        Glide.with(BookInfoOrder.this).load(image).placeholder(R.drawable.loading_shape).dontAnimate().into(bthumbnail);
     }
 }

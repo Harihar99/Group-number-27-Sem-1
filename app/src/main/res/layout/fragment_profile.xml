@@ -77,36 +77,6 @@
         android:layout_marginTop="5dp"/>
 
     <LinearLayout
-        android:id="@+id/linearl2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/favoritesicon"
-            android:layout_marginStart="30dp"
-            android:contentDescription="@string/favourites" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/favourites"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="370dp"
-        android:layout_height="1dp"
-        android:background="@color/darkBlue"
-        android:layout_marginTop="5dp"/>
-
-    <LinearLayout
         android:id="@+id/linearl3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

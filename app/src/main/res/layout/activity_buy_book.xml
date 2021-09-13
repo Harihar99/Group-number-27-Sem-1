@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BuyBook">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/sadd"
+                android:layout_marginTop="6dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/black"/>
+
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/f1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/buybook"
+
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:fontFamily="@font/nunito"
+                android:text="183 rs"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="35sp" />
+            <TextView
+
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginTop="46dp"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/nunito"
+                android:text="final amount to pay"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/rentbook"
+                android:layout_width="140dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="right"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/nunito"
+                android:text="@string/conti"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                />
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

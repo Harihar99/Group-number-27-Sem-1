@@ -27,21 +27,23 @@
                    android:paddingStart="10dp"
                    android:orientation="vertical"
                    android:background="@color/white"
-                   android:layout_marginBottom="15dp">
+                   android:layout_marginBottom="10dp"
+                   tools:ignore="RtlSymmetry">
 
                    <TextView
                        android:layout_height="wrap_content"
                        android:layout_width="wrap_content"
                        android:layout_marginBottom="15dp"
+                       android:layout_marginTop="5dp"
                        android:textSize="23sp"
                        android:textStyle="bold"
-                       android:text="Order Summary"/>
+                       android:text="@string/order_summary"/>
 
                    <TextView
                        android:id="@+id/oname"
                        android:layout_height="wrap_content"
                        android:layout_width="wrap_content"
-                       android:text="Atharva Ikhar"
+                       android:text="@string/name"
                        android:textColor="@color/black"
                        android:layout_marginBottom="8dp"
                        android:textSize="20sp"/>
@@ -50,21 +52,23 @@
                        android:id="@+id/onumber"
                        android:layout_height="wrap_content"
                        android:layout_width="wrap_content"
-                       android:text="8698961606"
+                       android:text="@string/ph_no"
+                       android:textSize="15sp"
                        android:layout_marginBottom="3dp"
                        android:textColor="@color/black"/>
 
                    <TextView
                        android:id="@+id/oaddress"
+                       android:textSize="14sp"
                        android:layout_height="wrap_content"
                        android:layout_width="wrap_content"
-                       android:text="103, Pranali Apartment, Kothrud, Pune"
                        android:textColor="@color/black"/>
 
                    <TextView
+                       android:id="@+id/opin"
+                       android:textSize="14sp"
                        android:layout_height="wrap_content"
                        android:layout_width="wrap_content"
-                       android:text="411038"
                        android:textColor="@color/black"
                        android:layout_marginBottom="10dp"/>
 
@@ -73,7 +77,7 @@
                        android:layout_height="45dp"
                        android:layout_width="380dp"
                        android:layout_gravity="center_horizontal"
-                       android:text="Change Address for this order"
+                       android:text="@string/change_address_for_this_order"
                        android:background="@color/colorPrimary"
                        android:textColor="@color/white"
                        android:layout_marginBottom="10dp"/>
@@ -87,10 +91,10 @@
 
                     <ImageView
                         android:id="@+id/bthumbnail"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
                         android:background="@drawable/loading_shape"
-                        />
+                        android:contentDescription="@string/book_image" />
 
                     <LinearLayout
                         android:layout_height="wrap_content"
@@ -100,26 +104,25 @@
                             android:id="@+id/obname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Notes from underground"
-                            android:textSize="18dp"
+                            android:text="@string/name"
+                            android:textSize="18sp"
                             android:textColor="@color/black" />
                         <TextView
                             android:id="@+id/obauthorname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Fyodor Dostoevsky"/>
+                            android:text="@string/authname"/>
                         <TextView
                             android:id="@+id/ogenre"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Philosophy"/>
+                            android:text="@string/genre"/>
 
                         <TextView
                             android:id="@+id/oprice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="₹ 180"
-                            android:textSize="24dp"
+                            android:textSize="24sp"
                             android:textColor="@color/black" />
                     </LinearLayout>
 
@@ -131,7 +134,7 @@
                     android:layout_marginTop="20dp"
                     android:orientation="vertical"
                     android:background="@color/white"
-                    android:layout_marginBottom="15dp">
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_height="wrap_content"
@@ -141,7 +144,8 @@
                         android:textSize="19sp"
                         android:textStyle="bold"
                         android:paddingTop="5dp"
-                        android:text="Price details"/>
+                        android:text="@string/price_details"
+                        tools:ignore="RtlSymmetry" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -150,7 +154,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Price(1 item)"
+                            android:text="@string/price_1_item"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +166,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="4dp"
                             android:gravity="end"
-                            android:text="₹ 180"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -177,7 +180,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Delivery charges"
+                            android:text="@string/delivery_charges"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -189,7 +192,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="4dp"
                             android:gravity="end"
-                            android:text="₹ 180"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -199,12 +201,13 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total amount"
+                            android:text="@string/total_amount"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -216,13 +219,59 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="4dp"
                             android:gravity="end"
-                            android:text="₹ 180"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:paddingStart="10dp"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:paddingTop="5dp"
+                        android:text="@string/payment_details"
+                        tools:ignore="RtlSymmetry" />
+
+                    <RadioButton
+                        android:id="@+id/r1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cash_on_delivery"
+                        android:textColor="@color/black"
+                        android:buttonTint="@color/colorPrimary"
+                        android:checked="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/pinfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pinfo"
+                        android:textSize="13sp"
+                        android:textColor="@color/grey"
+                        android:paddingStart="30dp"
+                        android:paddingBottom="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="RtlSymmetry" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -241,35 +290,36 @@
                 android:id="@+id/famount"
                 android:layout_width="190dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:fontFamily="@font/nunito"
-                android:text="183 rs"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="35sp" />
+                android:textSize="35sp"
+                tools:ignore="RtlHardcoded" />
             <TextView
 
                 android:layout_width="190dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_marginTop="46dp"
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/nunito"
-                android:text="final amount to pay"
+                android:text="@string/final_amount_to_pay"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="10sp" />
+                android:textSize="11sp"
+                tools:ignore="SmallSp" />
 
             <Button
-                android:id="@+id/continue"
+                android:id="@+id/placeorder"
                 android:layout_width="140dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_gravity="right"
-                android:background="@color/colorPrimary"
+                android:layout_gravity="end"
+                android:background="@color/green"
                 android:fontFamily="@font/nunito"
-                android:text="@string/conti"
+                android:text="@string/placeorder"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp"

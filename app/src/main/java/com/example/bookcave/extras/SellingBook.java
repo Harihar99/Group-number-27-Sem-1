@@ -3,6 +3,7 @@ package com.example.bookcave.extras;
 public class SellingBook {
 
     //unique IDs
+    private String sellerbookid;
     private String bookid;
     private String sellerid;
 
@@ -24,8 +25,9 @@ public class SellingBook {
 
     public SellingBook(){ }
 
-    public SellingBook(String bookid,String sellerid,int quantities,int sellingprice,int rentingprice,int deliverycharges,String title,String author,String description,String category,String thumbnail,String preview){
+    public SellingBook(String bookid,String sellerbookid,String sellerid,int quantities,int sellingprice,int rentingprice,int deliverycharges,String title,String author,String description,String category,String thumbnail,String preview){
         this.bookid=bookid;
+        this.sellerbookid=sellerbookid;
         this.sellerid=sellerid;
         this.quantities=quantities;
         this.sellingprice=sellingprice;
@@ -45,6 +47,12 @@ public class SellingBook {
 
     public void setBookid(String bookid) {
         this.bookid = bookid;
+    }
+
+    public String getSellerBookid() { return sellerbookid; }
+
+    public void setSellerBookid(String sellerBookid) {
+        this.sellerid = sellerBookid;
     }
 
     public String getSellerid() {

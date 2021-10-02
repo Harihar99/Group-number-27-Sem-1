@@ -101,6 +101,7 @@ public class HomecFragment extends Fragment {
                         i.putExtra("book_cat",model.getCategory());
 
                         i.putExtra("link",model.getPreview());
+                        i.putExtra("sellerbookid", model.getSellerBookid());
                         i.putExtra("seller",model.getSellerid());
                         i.putExtra("rp",model.getRentingprice());
                         i.putExtra("sp",model.getSellingprice());

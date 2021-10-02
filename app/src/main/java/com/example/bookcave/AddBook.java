@@ -19,8 +19,9 @@ import com.example.bookcave.extras.SellingBook;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.UUID;
 
 public class AddBook extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class AddBook extends AppCompatActivity {
     private Button updateBtn;
     private FirebaseAuth fAuth;
     private String userid;
+    final String uniqueid= UUID.randomUUID().toString();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,12 +97,11 @@ public class AddBook extends AppCompatActivity {
                 //Save Data to Firestore
                 fAuth = FirebaseAuth.getInstance();
                 final FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference sellingListRef = db.collection("SellingList").document();
 
                 userid = fAuth.getCurrentUser().getUid();
                 updateBtn.setText("Adding new stock...");
 
-                SellingBook sellingBook=new SellingBook(book_id,userid,uq,up,urp,udp,book_title,book_author,book_desc,book_cat,image,preview);
+                SellingBook sellingBook=new SellingBook(book_id,uniqueid,userid,uq,up,urp,udp,book_title,book_author,book_desc,book_cat,image,preview);
                 /*
                 Map<String, Object> book = new HashMap<>();
                 book.put("sellerid", userid);
@@ -111,7 +112,7 @@ public class AddBook extends AppCompatActivity {
                 book.put("deliverycharges", udp);
                  */
 
-                sellingListRef.set(sellingBook).addOnCompleteListener(new OnCompleteListener<Void>() {
+                db.collection("SellingList").document(uniqueid).set(sellingBook).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         updateBtn.setText("Add book to selling list");

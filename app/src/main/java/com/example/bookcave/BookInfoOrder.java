@@ -52,6 +52,7 @@ public class BookInfoOrder extends AppCompatActivity {
         final String book_desc = intent.getStringExtra("book_desc");
         final String preview = intent.getStringExtra("link");
         final String book_cat = intent.getStringExtra("book_cat");
+        final String sellerbookid = intent.getStringExtra("sellerbookid");
 
         final String sellerid=intent.getStringExtra("seller");
         final int sprice = intent.getIntExtra("sp", 0);
@@ -101,9 +102,10 @@ public class BookInfoOrder extends AppCompatActivity {
                 i.putExtra("book_author" ,book_author);
                 i.putExtra("book_title",book_title);
                 i.putExtra("book_thumbnail",image);
-
+                i.putExtra("book_cat",book_cat);
 
                 i.putExtra("seller",sellerid);
+                i.putExtra("sellerbookid",sellerbookid);
                 i.putExtra("rp",rprice);
                 i.putExtra("sp",sprice);
                 i.putExtra("dc",dprice);

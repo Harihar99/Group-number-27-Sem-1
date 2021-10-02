@@ -49,10 +49,10 @@ public class SellingBook {
         this.bookid = bookid;
     }
 
-    public String getSellerBookid() { return sellerbookid; }
+    public String getSellerbookid() { return sellerbookid; }
 
-    public void setSellerBookid(String sellerBookid) {
-        this.sellerid = sellerBookid;
+    public void setSellerbookid(String sellerbookid) {
+        this.sellerbookid = sellerbookid;
     }
 
     public String getSellerid() {

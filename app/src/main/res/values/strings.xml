@@ -119,5 +119,6 @@
     <string name="use_this_address_for_this_order">Use this Address for this order</string>
     <string name="go_to_home">Go to Home</string>
     <string name="order_placed">Order placed!</string>
+    <string name="click_on_address_to_change_address_for_this_order">(Click on address to change address and pincode for this order)</string>
 
 </resources>

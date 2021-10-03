@@ -21,7 +21,7 @@ public class Order {
     private int totalamount;
     private String orderedat;
     private String status;
-    private String accepted;
+    private int accepted;
     private String updatedat;
     private String otp;
 
@@ -138,11 +138,11 @@ public class Order {
         this.status = status;
     }
 
-    public String getAccepted() {
+    public int getAccepted() {
         return accepted;
     }
 
-    public void setAccepted(String accepted) {
+    public void setAccepted(int accepted) {
         this.accepted = accepted;
     }
 

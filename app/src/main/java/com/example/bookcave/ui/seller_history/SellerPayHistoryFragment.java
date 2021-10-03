@@ -1,4 +1,4 @@
-package com.example.bookcave.profile;
+package com.example.bookcave.ui.seller_history;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -26,41 +26,42 @@ import com.google.firebase.firestore.Query;
 
 import org.jetbrains.annotations.NotNull;
 
-public class PaymentHistoryC extends AppCompatActivity {
+public class SellerPayHistoryFragment extends Fragment {
 
-    private RecyclerView recyler_payment_history_c;
     private FirebaseFirestore firebaseFirestore;
+    private RecyclerView recyler_payment_history_s;
     private FirestoreRecyclerAdapter adapter;
-    public String reason;
     FirebaseAuth firebaseAuth;
     private Query query;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment_history_c);
+    private String cusname;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_seller_pay_history, container, false);
 
+        final SwipeRefreshLayout pullToRefresh = root.findViewById(R.id.pullToRefreshspayhis);
+        recyler_payment_history_s = root.findViewById(R.id.recyler_payment_history_s);
         firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseAuth=FirebaseAuth.getInstance();
-        final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefreshPaymentHis);
-        recyler_payment_history_c = findViewById(R.id.recyler_payment_history_c);
-        final String userid= firebaseAuth.getCurrentUser().getUid();
-        showPaymentHistory(userid);
-        recyler_payment_history_c.setHasFixedSize(true);
-        recyler_payment_history_c.setLayoutManager(new LinearLayoutManager(this));
-        recyler_payment_history_c.setAdapter(adapter);
+        firebaseAuth = FirebaseAuth.getInstance();
+        final String current_user_id = firebaseAuth.getCurrentUser().getUid();
+        showsellerpayhis(current_user_id);
+        recyler_payment_history_s.setHasFixedSize(true);
+        recyler_payment_history_s.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyler_payment_history_s.setAdapter(adapter);
         //End of adapter code
 
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showPaymentHistory(userid);
+                showsellerpayhis(current_user_id);
                 pullToRefresh.setRefreshing(false);
             }
         });
+        return root;
     }
 
-    public void showPaymentHistory(String userid) {
-        query = firebaseFirestore.collection("Orders").whereEqualTo("customerid",userid);
+    public void showsellerpayhis(String userid)
+    {
+        query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid).whereEqualTo("status","Delivered");
 
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()
                 .setQuery(query, Order.class)
@@ -78,29 +79,26 @@ public class PaymentHistoryC extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NotNull PaymentsViewHolder viewHolder, int position, Order model) {
                 //get id and query to set book name and author
-                viewHolder.row_amount.setText(String.valueOf(model.getPrice())+" ₹");
+                viewHolder.row_amount.setText("+ "+String.valueOf(model.getPrice())+" ₹");
                 viewHolder.row_paidon.setText(String.valueOf(model.getUpdatedat()));
                 String status=String.valueOf(model.getStatus());
 
                 if(status.equals("Delivered"))
                 {
-                    viewHolder.row_pstatus.setText("Paid");
-                }else{
-                    viewHolder.row_pstatus.setText("To be paid");
+                    viewHolder.row_pstatus.setText("Received");
                 }
-                //For book details
-                DocumentReference docRef1 = firebaseFirestore.collection("SellingList").document(model.getBookid());
+                DocumentReference docRef1 = firebaseFirestore.collection("Users").document(model.getCustomerid());
                 docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) { reason = documentSnapshot.getString("title"); }
+                        if (documentSnapshot.exists()) { cusname = documentSnapshot.getString("firstname")+" "+documentSnapshot.getString("lastname"); }
                     }
                 });
-                viewHolder.row_for.setText("For: "+reason);
+                viewHolder.row_for.setText("by "+cusname);
             }
         };
         adapter.startListening();
-        recyler_payment_history_c.setAdapter(adapter);
+        recyler_payment_history_s.setAdapter(adapter);
     }
 
     public class PaymentsViewHolder extends RecyclerView.ViewHolder {

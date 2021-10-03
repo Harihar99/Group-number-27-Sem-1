@@ -72,7 +72,7 @@
     <string name="menu_setting">Settings</string>
     <string name="menu_feedback">Report a problem</string>
     <string name="menu_about">About our app</string>
-    <string name="menu_history">Order history</string>
+    <string name="menu_history">Payment history</string>
     <string name="menu_current_order">Current orders</string>
     <string name="user">User</string>
     <string name="searchhere">Search Book to add</string>
@@ -120,5 +120,8 @@
     <string name="go_to_home">Go to Home</string>
     <string name="order_placed">Order placed!</string>
     <string name="click_on_address_to_change_address_for_this_order">(Click on address to change address and pincode for this order)</string>
+    <string name="orders_recevied">Orders recevied</string>
+    <string name="profit_earned">Profit earned*</string>
+    <string name="potential_profit">Potential profit</string>
 
 </resources>

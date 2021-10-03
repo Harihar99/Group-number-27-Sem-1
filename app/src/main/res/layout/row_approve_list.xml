@@ -15,31 +15,31 @@
         android:orientation="vertical">
 
     <TextView
-        android:id="@+id/row_bname"
+        android:id="@+id/row_bookname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="3"
-        android:text="Animal Farm"
+        android:text="Order for How to read a book"
         android:textColor="@color/black"
         android:textSize="19sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/row_bauthor"
+        android:id="@+id/row_orderedon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:text="George Orwell"
+        android:text="on date"
         android:maxLines="2"
         />
 
     <TextView
-        android:id="@+id/row_bprice"
+        android:id="@+id/row_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="100 INR"
+        android:text="Shantidham society, kothrud, Pune"
         android:textSize="16sp"
         android:textColor="#000"
         android:gravity="center" />
@@ -49,28 +49,27 @@
 
         android:layout_width="100dp"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/row_bstatus"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/acc_order"
+            android:layout_height="40dp"
             android:layout_width="wrap_content"
             android:textSize="15sp"
-            android:layout_gravity="end"
-            android:paddingTop="15sp"
-            android:paddingEnd="5sp"
+            android:textAllCaps="false"
             android:textColor="@color/green"
-            android:text="Delivered" />
-
-        <TextView
-            android:id="@+id/row_updatedon"
-            android:layout_height="wrap_content"
+            android:background="@color/lightGrey"
+            android:text="Accept"
+            style="?android:attr/borderlessButtonStyle"/>
+        <Button
+            android:id="@+id/dec_order"
+            android:layout_height="40dp"
             android:layout_width="wrap_content"
-            android:textSize="10sp"
-            android:layout_gravity="end"
-            android:paddingTop="5sp"
-            android:paddingEnd="2sp"
-            android:text="" />
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            android:textColor="@color/red"
+            android:text="Decline"
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 </LinearLayout>

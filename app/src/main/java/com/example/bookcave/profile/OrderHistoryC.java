@@ -38,8 +38,8 @@ public class OrderHistoryC extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefreshOrderHis);
         recyler_order_history_c = findViewById(R.id.recyler_order_history_c);
-
-        showOrderHistory();
+        final String userid= firebaseAuth.getCurrentUser().getUid();
+        showOrderHistory(userid);
         recyler_order_history_c.setHasFixedSize(true);
         recyler_order_history_c.setLayoutManager(new LinearLayoutManager(this));
         recyler_order_history_c.setAdapter(adapter);
@@ -48,14 +48,14 @@ public class OrderHistoryC extends AppCompatActivity {
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showOrderHistory();
+                showOrderHistory(userid);
                 pullToRefresh.setRefreshing(false);
             }
         });
     }
 
-    public void showOrderHistory() {
-        query = firebaseFirestore.collection("Orders").whereEqualTo("customerid", firebaseAuth.getCurrentUser().getUid());
+    public void showOrderHistory(String userid) {
+        query = firebaseFirestore.collection("Orders").whereEqualTo("customerid",userid);
 
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()
                 .setQuery(query, Order.class)
@@ -71,12 +71,14 @@ public class OrderHistoryC extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(@NotNull OrdersViewHolder viewHolder, int position, @NotNull final Order model) {
+            protected void onBindViewHolder(@NotNull OrdersViewHolder viewHolder, int position, Order model) {
                 //get id and query to set book name and author
-                viewHolder.row_bprice.setText(model.getPrice());
-                viewHolder.row_updatedon.setText(model.getUpdatedat());
+                viewHolder.row_bprice.setText(String.valueOf(model.getPrice()));
+                viewHolder.row_updatedon.setText(String.valueOf(model.getUpdatedat()));
             }
         };
+        adapter.startListening();
+        recyler_order_history_c.setAdapter(adapter);
     }
         public class OrdersViewHolder extends RecyclerView.ViewHolder {
             View mView;

@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-    public void showUnacceptedOrders(String userid)
+    private void showUnacceptedOrders(String userid)
     {
         query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid)
                                                       .whereEqualTo("accepted",0);
@@ -125,14 +125,8 @@ public class HomeFragment extends Fragment {
                 final String orderid = String.valueOf(model.getOrderid());
 
                 //For book details
-                DocumentReference docRef1 = firebaseFirestore.collection("Orders").document(model.getBookid());
-                docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) { bookname = documentSnapshot.getString("title"); }
-                    }
-                });
-                viewHolder.row_bookname.setText("For: "+bookname);
+                GetBookDetails(model.getBookid());
+                viewHolder.row_bookname.setText(String.format("For: %s", bookname));
 
                 viewHolder.acc_order.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -186,5 +180,18 @@ public class HomeFragment extends Fragment {
             acc_order=mView.findViewById(R.id.acc_order);
             dec_order=mView.findViewById(R.id.dec_order);
         }
+    }
+
+    public void GetBookDetails(String bookid)
+    {
+
+        DocumentReference docRef1 = firebaseFirestore.collection("Orders").document(bookid);
+        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) { bookname = documentSnapshot.getString("title");
+                    }
+            }
+        });
     }
 }

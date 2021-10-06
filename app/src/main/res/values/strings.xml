@@ -66,11 +66,12 @@
 
     <string name="home_second">Home Second</string>
     <string name="menu_booklist">Books List</string>
+    <string name="menu_update_order">Update Order status</string>
     <string name="menu_info">My information</string>
     <string name="menu_profile">My profile</string>
     <string name="menu_options">Others</string>
     <string name="menu_setting">Settings</string>
-    <string name="menu_feedback">Report a problem</string>
+    <string name="menu_feedback">Report problem/Contact us</string>
     <string name="menu_about">About our app</string>
     <string name="menu_history">Payment history</string>
     <string name="menu_current_order">Current orders</string>
@@ -123,5 +124,6 @@
     <string name="orders_recevied">Orders recevied</string>
     <string name="profit_earned">Profit earned*</string>
     <string name="potential_profit">Potential profit</string>
+    <string name="descripforOTP">Give the below secret OTP to delivery boy to authenticate and securely deliver the order.</string>
 
 </resources>

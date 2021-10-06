@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -23,14 +25,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.bookcave.R;
 import com.example.bookcave.extras.Book;
 import com.example.bookcave.extras.SBRecyclerViewAdapter;
+import com.example.bookcave.extras.SellingBook;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +52,7 @@ public class SearchFragment extends Fragment {
     private RequestQueue mRequestQueue;
     private RecyclerView recyclerview_main;
     private SBRecyclerViewAdapter mAdapter;
-    private FirebaseFirestore firebaseFirestore;
+    private FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     private FirestoreRecyclerAdapter adapter;
     private Query query;
     private ToggleButton toggleButton;
@@ -85,7 +91,6 @@ public class SearchFragment extends Fragment {
                     Toast.makeText(getActivity(), "Searching through web", Toast.LENGTH_SHORT).show();
                     mBooks.clear();
                     search();
-
                 }
                 else {
                     mBooks.clear();
@@ -97,7 +102,7 @@ public class SearchFragment extends Fragment {
                         Toast.makeText(getActivity(),"Searching -"+search_main.getText().toString(),Toast.LENGTH_SHORT).show();
                         searchFirestore(search_main.getText().toString());
                     }
-                    }
+                }
             }
         });
         return root;
@@ -105,8 +110,34 @@ public class SearchFragment extends Fragment {
 
     private void searchFirestore(String input_given) {
         //Insert the code for searching a book in firebase
-       // firebaseFirestore.collection("SellingList").orderBy("search_keywords")
-              //  .startAt(input_given).endAt("").get().addOnCompleteListener();
+        query = firebaseFirestore.collection("SellingList").whereEqualTo("title",input_given);
+        FirestoreRecyclerOptions<SellingBook> options = new FirestoreRecyclerOptions.Builder<SellingBook>()
+                .setQuery(query, SellingBook.class)
+                .build();
+
+        adapter = new FirestoreRecyclerAdapter<SellingBook, BookokayViewHolder>(options) {
+            @Override
+            public BookokayViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.row_book_search_result, parent, false);
+
+                return new BookokayViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NotNull BookokayViewHolder viewHolder, int position, SellingBook model) {
+                //get id and query to set book name and author
+                int sp=model.getSellingprice();
+                viewHolder.title.setText(model.getTitle());
+                viewHolder.category.setText(model.getCategory());
+                viewHolder.author.setText(model.getAuthor());
+                viewHolder.author.setText(String.valueOf(sp));
+                Glide.with(requireActivity()).load(model.getThumbnail()).placeholder(R.drawable.loading_shape).dontAnimate().into(viewHolder.thumbnail);
+
+            }
+        };
+        adapter.startListening();
+        recyclerview_main.setAdapter(adapter);
     }
 
     private void parseJson(String key) {
@@ -200,6 +231,25 @@ public class SearchFragment extends Fragment {
             Uri.Builder buider = uri.buildUpon();
             parseJson(buider.toString());
 
+    }
+
+    public class BookokayViewHolder extends RecyclerView.ViewHolder {
+        View mView;
+        LinearLayout container; //row_filter_s_list
+        TextView title,category,price,author;
+        ImageView thumbnail;
+
+        BookokayViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView;
+            container=mView.findViewById(R.id.container);
+
+            title=mView.findViewById(R.id.title);
+            category=mView.findViewById(R.id.category);
+            price=mView.findViewById(R.id.price);
+            thumbnail=mView.findViewById(R.id.thumbnail);
+            author=mView.findViewById(R.id.author);
+        }
     }
 
 

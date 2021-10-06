@@ -17,14 +17,17 @@ import com.example.bookcave.R;
 import com.example.bookcave.extras.Order;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class PaymentHistoryC extends AppCompatActivity {
 
@@ -89,11 +92,14 @@ public class PaymentHistoryC extends AppCompatActivity {
                     viewHolder.row_pstatus.setText("To be paid");
                 }
                 //For book details
-                DocumentReference docRef1 = firebaseFirestore.collection("SellingList").document(model.getBookid());
-                docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                firebaseFirestore.collection("SellingList").whereEqualTo("bookid",model.getBookid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) { reason = documentSnapshot.getString("title"); }
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                reason = document.getString("title");
+                            }
+                        }
                     }
                 });
                 viewHolder.row_for.setText("For: "+reason);

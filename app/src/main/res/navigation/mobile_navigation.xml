@@ -37,9 +37,9 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.bookcave.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_removebooks"
-        tools:layout="@layout/fragment_slideshow" />
+        android:name="com.example.bookcave.ui.seller_currentorders.SellerCurrentOrdersFragment"
+        android:label="@string/menu_update_order"
+        tools:layout="@layout/fragment_seller_current_orders" />
 
     <fragment
         android:id="@+id/nav_booklist"

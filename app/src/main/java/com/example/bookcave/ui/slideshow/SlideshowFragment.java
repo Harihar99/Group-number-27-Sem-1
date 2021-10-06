@@ -59,6 +59,7 @@ public class SlideshowFragment extends Fragment {
         arrayList.add("Packed");
         arrayList.add("Out for delivery!");
         arrayList.add("Delivered");
+        arrayList.add("Rejected");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(),android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
@@ -97,6 +98,11 @@ public class SlideshowFragment extends Fragment {
         }else{
             query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid)
                     .whereEqualTo("status",filter);
+        }
+        if(filter.equals("Rejected"))
+        {
+            query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid)
+            .whereEqualTo("accepted",2);
         }
 
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()

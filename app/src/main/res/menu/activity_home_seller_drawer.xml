@@ -14,8 +14,8 @@
             android:title="@string/menu_addbook" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/remove_book_36"
-            android:title="@string/menu_removebooks" />
+            android:icon="@drawable/book_list_36"
+            android:title="@string/menu_update_order" />
         <item
             android:id="@+id/nav_booklist"
             android:icon="@drawable/book_list_36"

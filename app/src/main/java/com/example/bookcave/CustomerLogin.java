@@ -132,6 +132,7 @@ public class CustomerLogin extends AppCompatActivity {
                                                 finish();
                                             }else if(type.equals("Seller")){
                                                 Intent intent = new Intent(CustomerLogin.this, HomeSeller.class);
+                                                intent.putExtra("user_id" ,userid);
                                                 startActivity(intent);
                                                 finish();
                                             }

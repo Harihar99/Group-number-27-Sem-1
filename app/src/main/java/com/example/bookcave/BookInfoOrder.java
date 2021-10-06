@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -113,12 +114,11 @@ public class BookInfoOrder extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         rentbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(preview);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+                Toast.makeText(BookInfoOrder.this, "We are working on this, till then buy a book!", Toast.LENGTH_SHORT).show();
             }
         });
     }

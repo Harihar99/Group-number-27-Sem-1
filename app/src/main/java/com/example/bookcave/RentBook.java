@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,19 +30,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class BuyBook extends AppCompatActivity {
+public class RentBook extends AppCompatActivity {
 
-    public TextView oname,obname,obauthorname,ogenre,oprice,oitemprice,odeliprice,ototalprice,famount,onumber;
+    public TextView oname,obname,obauthorname,ogenre,oprice,oitemprice,odeliprice,ototalprice,famount,onumber,showdays;
     public EditText oaddress,opin;
     public Button order;
     public ImageView bthumbnail;
-    private int total;
+    private int total,days;
+    private SeekBar seekBar;
     private String userid,bookid,bookauthor,booktitle,image,rprice,genre,mailid,sid,dateTime,sbid;
-    private int sprice,dprice,available;
+    private int sprice,dprice,available,newsp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buy_book);
+        setContentView(R.layout.activity_rent_book);
+
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final String uniqueid= UUID.randomUUID().toString();
         Calendar calender= Calendar.getInstance();
@@ -62,6 +65,8 @@ public class BuyBook extends AppCompatActivity {
         famount=findViewById(R.id.famount);
         order=findViewById(R.id.placeorder);
         bthumbnail=findViewById(R.id.bthumbnail);
+        seekBar=findViewById(R.id.seekBar);
+        showdays=findViewById(R.id.showdays);
 
         //get the order information
         bookid = getIntent().getStringExtra("book_id");
@@ -74,8 +79,30 @@ public class BuyBook extends AppCompatActivity {
         dprice= getIntent().getIntExtra("dc",0);
         available = getIntent().getIntExtra("qu",0);
 
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                days=progress;
+                showdays.setText(String.valueOf(days));
+                newsp=sprice*progress;
+                total=newsp+dprice;
+                oitemprice.setText(String.valueOf(newsp)+" ₹");
+                ototalprice.setText(String.valueOf(total)+" ₹");
+                famount.setText("₹ "+String.valueOf(total));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
         //set text
-        Glide.with(BuyBook.this).load(image).placeholder(R.drawable.loading_shape).dontAnimate().into(bthumbnail);
+        Glide.with(RentBook.this).load(image).placeholder(R.drawable.loading_shape).dontAnimate().into(bthumbnail);
         obname.setText(booktitle);
         obauthorname.setText(bookauthor);
         ogenre.setText(genre);
@@ -83,7 +110,7 @@ public class BuyBook extends AppCompatActivity {
         ogenre.setText("");
         oitemprice.setText(String.valueOf(sprice)+" ₹");
         odeliprice.setText(String.valueOf(dprice)+" ₹");
-        total=sprice+dprice;
+        //total=sprice+dprice;
         ototalprice.setText(String.valueOf(total)+" ₹");
         famount.setText("₹ "+String.valueOf(total));
 
@@ -123,60 +150,63 @@ public class BuyBook extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(opin.getText().toString().trim().length()<6) {
-                    Toast.makeText(BuyBook.this, "Pincode should be of 6 digits", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RentBook.this, "Pincode should be of 6 digits", Toast.LENGTH_SHORT).show();
                 }
                 if(TextUtils.isEmpty(oaddress.getText().toString().trim())){
                     Toast.makeText(getApplicationContext(),"Please enter your address",Toast.LENGTH_LONG).show();
                     return;
                 }
-                    Map<String, Object> order = new HashMap<>();
-                    //unique ids
-                    order.put("orderid", uniqueid);
-                    order.put("bookid", bookid);
-                    order.put("sellerid", sid);
-                    order.put("customerid", userid);
-                    //book info can be taken from SellingList
-                    //customer info
-                    order.put("address", oaddress.getText().toString().trim());
-                    order.put("pincode", opin.getText().toString().trim());
-                    order.put("phno", onumber.getText().toString().trim());
-                    order.put("email", mailid);
-                    //order info
-                    order.put("type", "Buy");
-                    order.put("price", sprice);
-                    order.put("deliverycharge", dprice);
-                    order.put("totalamount", total);
-                    order.put("orderedat", dateTime);
-                    order.put("status", "Order placed");
-                    order.put("accepted", 0);
-                    order.put("updatedat", dateTime);
-                    int otp = (int) (Math.random() * 9000) + 1000;
-                    order.put("otp", String.valueOf(otp));
+                Map<String, Object> order = new HashMap<>();
+                //unique ids
+                order.put("orderid", uniqueid);
+                order.put("bookid", bookid);
+                order.put("sellerid", sid);
+                order.put("customerid", userid);
+                //book info can be taken from SellingList
+                //customer info
+                order.put("address", oaddress.getText().toString().trim());
+                order.put("pincode", opin.getText().toString().trim());
+                order.put("phno", onumber.getText().toString().trim());
+                order.put("email", mailid);
+                //order info
+                order.put("type", "Rent");
+                order.put("price", sprice);
+                order.put("deliverycharge", dprice);
+                order.put("totalamount", total);
+                order.put("orderedat", dateTime);
+                order.put("status", "Order placed");
+                order.put("accepted", 0);
+                order.put("updatedat", dateTime);
 
-                    //Get all the details of the order and save it in data
-                    db.collection("Orders").document(uniqueid).set(order).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(BuyBook.this, "Order placed \uD83C\uDF89", Toast.LENGTH_LONG).show();
+                order.put("docverified",0);
+                order.put("days",days);
+                int otp = (int) (Math.random() * 9000) + 1000;
+                order.put("otp", String.valueOf(otp));
 
-                                db.collection("SellingList").document(sbid).update("quantities", FieldValue.increment(-1)).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Intent i = new Intent(BuyBook.this, Placed.class);
-                                            startActivity(i);
-                                        }
+                //Get all the details of the order and save it in data
+                db.collection("Orders").document(uniqueid).set(order).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(RentBook.this, "Order placed \uD83C\uDF89", Toast.LENGTH_LONG).show();
+
+                            db.collection("SellingList").document(sbid).update("quantities", FieldValue.increment(-1)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent i = new Intent(RentBook.this, Placed.class);
+                                        startActivity(i);
                                     }
-                                });
-                            } else {
-                                String errorMessage = task.getException().getMessage();
-                                Toast.makeText(BuyBook.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
-                            }
+                                }
+                            });
+                        } else {
+                            String errorMessage = task.getException().getMessage();
+                            Toast.makeText(RentBook.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                         }
-                    });
-                    //Remove 1 quantity from the ordered book's name
-                }
+                    }
+                });
+                //Remove 1 quantity from the ordered book's name
+            }
         });
     }
 }

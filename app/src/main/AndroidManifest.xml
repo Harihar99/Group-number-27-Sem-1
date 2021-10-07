@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ViewOrderCustomer"></activity>
+        <activity android:name=".RentBook"></activity>
+        <activity android:name=".ViewOrderCustomer" />
         <activity android:name=".UpdateOrder" />
         <activity android:name=".Placed" />
         <activity android:name=".ChangeAddress" />

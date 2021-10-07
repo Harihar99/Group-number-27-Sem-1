@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -118,7 +117,20 @@ public class BookInfoOrder extends AppCompatActivity {
         rentbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BookInfoOrder.this, "We are working on this, till then buy a book!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(BookInfoOrder.this,RentBook.class);
+                i.putExtra("book_id" ,book_id);
+                i.putExtra("book_author" ,book_author);
+                i.putExtra("book_title",book_title);
+                i.putExtra("book_thumbnail",image);
+                i.putExtra("book_cat",book_cat);
+
+                i.putExtra("seller",sellerid);
+                i.putExtra("sellerbookid",sellerbookid);
+                i.putExtra("rp",rprice);
+                i.putExtra("sp",sprice);
+                i.putExtra("dc",dprice);
+                i.putExtra("qu",quantities);
+                startActivity(i);
             }
         });
     }

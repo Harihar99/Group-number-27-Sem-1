@@ -125,5 +125,6 @@
     <string name="profit_earned">Profit earned*</string>
     <string name="potential_profit">Potential profit</string>
     <string name="descripforOTP">Give the below secret OTP to delivery boy to authenticate and securely deliver the order.</string>
+    <string name="select_the_number_of_days_for_renting">Select the number of days for renting: </string>
 
 </resources>

@@ -23,16 +23,17 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -125,7 +126,16 @@ public class HomeFragment extends Fragment {
                 final String orderid = String.valueOf(model.getOrderid());
 
                 //For book details
-                GetBookDetails(model.getBookid());
+                firebaseFirestore.collection("SellingList").whereEqualTo("bookid",model.getBookid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                bookname = document.getString("title");
+                            }
+                        }
+                    }
+                });
                 viewHolder.row_bookname.setText(String.format("For: %s", bookname));
 
                 viewHolder.acc_order.setOnClickListener(new View.OnClickListener() {
@@ -180,18 +190,5 @@ public class HomeFragment extends Fragment {
             acc_order=mView.findViewById(R.id.acc_order);
             dec_order=mView.findViewById(R.id.dec_order);
         }
-    }
-
-    public void GetBookDetails(String bookid)
-    {
-
-        DocumentReference docRef1 = firebaseFirestore.collection("Orders").document(bookid);
-        docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) { bookname = documentSnapshot.getString("title");
-                    }
-            }
-        });
     }
 }

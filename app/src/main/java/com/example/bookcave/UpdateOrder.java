@@ -131,7 +131,7 @@ public class UpdateOrder extends AppCompatActivity {
         supdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseFirestore.getInstance().collection("Orders").document(orderid).update("updatedon",dateTime,"status",updateto).addOnCompleteListener(new OnCompleteListener<Void>() {
+                FirebaseFirestore.getInstance().collection("Orders").document(orderid).update("updatedat",dateTime,"status",updateto).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful())

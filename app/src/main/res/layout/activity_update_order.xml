@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".UpdateOrder">
 
+
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
@@ -161,4 +163,5 @@
         android:textColor="@color/grey"
         android:layout_marginTop="10dp"
         android:text="@string/descripforOTP"/>
+
 </LinearLayout>

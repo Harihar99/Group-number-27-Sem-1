@@ -31,6 +31,7 @@ public class UpdateOrder extends AppCompatActivity {
     TextView ssellerid,sstatus,sbookname,sorderon,sname,sphno,semail,saddress,spin,stotalamount,sotp;
     Spinner updatespinner;
     Button supdate;
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +80,15 @@ public class UpdateOrder extends AppCompatActivity {
                     sphno.setText(phno);
                     sorderon.setText(oa);
                     sstatus.setText(s+": ");
+                    getname();
                 }
+            }
+        });
+
+        ssellerid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getname();
             }
         });
 
@@ -103,30 +112,8 @@ public class UpdateOrder extends AppCompatActivity {
         });
 
         //For book details
-        db.collection("SellingList").whereEqualTo("bookid",bookid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                bookname = document.getString("title");
 
-                            }
-                        }
-                    }
-                });
-        sbookname.setText(bookname);
 
-        db.collection("Users").whereEqualTo("email",mailid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        fullname = document.getString("firstname")+document.getString("lastname");
-                    }
-                }
-            }
-        });
-        sname.setText(fullname);
 
         supdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,5 +129,33 @@ public class UpdateOrder extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void getname()
+    {
+        db.collection("SellingList").whereEqualTo("bookid",bookid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                        bookname = document.getString("title");
+
+                    }
+                }
+            }
+        });
+
+        db.collection("Users").whereEqualTo("email",mailid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                        fullname = document.getString("firstname")+document.getString("lastname");
+                    }
+                }
+            }
+        });
+        sbookname.setText(bookname);
+        sname.setText(fullname);
     }
 }

@@ -2,6 +2,7 @@
 package com.example.bookcave;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,11 +25,12 @@ public class ViewOrderCustomer extends AppCompatActivity {
     String orderid,bookid,bookname,thumbnail,mailid,fullname;
     TextView ssellerid,sstatus,sbookname,sorderon,sname,sphno,semail,saddress,spin,stotalamount,sotp;
     ImageView bvthumbnail;
+    final FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_order_customer);
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         orderid = getIntent().getStringExtra("orderid");
         ssellerid=findViewById(R.id.ssellerid);
         sotp=findViewById(R.id.sotp);
@@ -71,6 +73,19 @@ public class ViewOrderCustomer extends AppCompatActivity {
             }
         });
 
+        ssellerid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getdata();
+            }
+        });
+
+        getdata();
+
+        Glide.with(ViewOrderCustomer.this).load(thumbnail).placeholder(R.drawable.loading_shape).dontAnimate().into(bvthumbnail);
+    }
+    public void getdata()
+    {
         //For book details
         db.collection("SellingList").whereEqualTo("bookid",bookid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -83,8 +98,6 @@ public class ViewOrderCustomer extends AppCompatActivity {
                 }
             }
         });
-        sbookname.setText(bookname);
-        Glide.with(ViewOrderCustomer.this).load(thumbnail).placeholder(R.drawable.loading_shape).dontAnimate().into(bvthumbnail);
 
         db.collection("Users").whereEqualTo("email",mailid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -96,6 +109,7 @@ public class ViewOrderCustomer extends AppCompatActivity {
                 }
             }
         });
+        sbookname.setText(bookname);
         sname.setText(fullname);
     }
 }

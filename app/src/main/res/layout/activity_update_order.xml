@@ -14,19 +14,20 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:orientation="horizontal">
-    <TextView
-        android:text="Unique id: "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"/>
-        <TextView
-            android:id="@+id/ssellerid"
+            <TextView
+            android:text="Unique id: "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="18sp"/>
+            android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/ssellerid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
@@ -40,15 +41,15 @@
             android:textSize="22dp"
             android:layout_marginTop="20dp"
             android:text="Packed: "/>
-    <TextView
-        android:id="@+id/sbookname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:text="HOw toread the bokd"/>
+        <TextView
+            android:id="@+id/sbookname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:text="HOw toread the bokd"/>
     </LinearLayout>
 
     <TextView
@@ -163,5 +164,7 @@
         android:textColor="@color/grey"
         android:layout_marginTop="10dp"
         android:text="@string/descripforOTP"/>
+
+
 
 </LinearLayout>

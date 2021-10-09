@@ -132,6 +132,21 @@
         android:layout_height="wrap_content"
         android:textColor="@color/grey"
         android:layout_marginTop="10dp"
-        android:text="@string/descripforOTP"/>
+        android:text="@string/descripforOTP"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:background="@drawable/round_corner_hollow"
+        android:paddingStart="20sp"
+        android:paddingEnd="20sp"
+        android:layout_gravity="center"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="Mark order as received"/>
 
 </LinearLayout>

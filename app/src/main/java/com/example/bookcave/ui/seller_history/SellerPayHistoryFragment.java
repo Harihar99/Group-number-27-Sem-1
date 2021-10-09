@@ -61,7 +61,7 @@ public class SellerPayHistoryFragment extends Fragment {
 
     public void showsellerpayhis(String userid)
     {
-        query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid).whereEqualTo("status","Delivered");
+        query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid);
 
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()
                 .setQuery(query, Order.class)
@@ -82,10 +82,15 @@ public class SellerPayHistoryFragment extends Fragment {
                 viewHolder.row_amount.setText("+ "+String.valueOf(model.getPrice())+" ₹");
                 viewHolder.row_paidon.setText(String.valueOf(model.getUpdatedat()));
                 String status=String.valueOf(model.getStatus());
-
-                if(status.equals("Delivered"))
+                String accept=String.valueOf(model.getAccepted());
+                if(status.equals("Order delivered"))
                 {
                     viewHolder.row_pstatus.setText("Received");
+                }else
+                {viewHolder.row_pstatus.setText("to be received");}
+                if(accept.equals("2"))
+                {
+                    viewHolder.row_pstatus.setText("Order rejected");
                 }
                 DocumentReference docRef1 = firebaseFirestore.collection("Users").document(model.getCustomerid());
                 docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

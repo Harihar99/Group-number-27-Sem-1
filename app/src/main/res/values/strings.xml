@@ -74,7 +74,7 @@
     <string name="menu_feedback">Report problem/Contact us</string>
     <string name="menu_about">About our app</string>
     <string name="menu_history">Payment history</string>
-    <string name="menu_current_order">Current orders</string>
+    <string name="menu_current_order">All orders</string>
     <string name="user">User</string>
     <string name="searchhere">Search Book to add</string>
 
@@ -126,5 +126,9 @@
     <string name="potential_profit">Potential profit</string>
     <string name="descripforOTP">Give the below secret OTP to delivery boy to authenticate and securely deliver the order.</string>
     <string name="select_the_number_of_days_for_renting">Select the number of days for renting: </string>
+    <string name="verification_documents_necessary">Verification documents necessary</string>
+    <string name="any_valid_identity_proof_like_aadhar_card_pan_card_license_card_voting_card_would_be_considered">Any valid identity proof like Aadhar card, PAN card, License card, voting card would be considered.</string>
+    <string name="any_valid_identity_proof_like_electricity_bill_rent_agreement_aadhar_card_would_be_considered">Any valid identity proof like Electricity bill, Rent agreement, Aadhar card would be considered.</string>
+    <string name="updatenview">Update/view details</string>
 
 </resources>

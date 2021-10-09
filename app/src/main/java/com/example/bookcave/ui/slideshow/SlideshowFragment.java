@@ -58,7 +58,7 @@ public class SlideshowFragment extends Fragment {
         arrayList.add("Processing");
         arrayList.add("Packed");
         arrayList.add("Out for delivery!");
-        arrayList.add("Delivered");
+        arrayList.add("Order delivered");
         arrayList.add("Rejected");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(requireActivity(),android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

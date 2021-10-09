@@ -1,5 +1,6 @@
 package com.example.bookcave.ui.search;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.bookcave.BookInfoOrder;
 import com.example.bookcave.R;
 import com.example.bookcave.extras.Book;
 import com.example.bookcave.extras.SBRecyclerViewAdapter;
@@ -125,15 +127,39 @@ public class SearchFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NotNull BookokayViewHolder viewHolder, int position, SellingBook model) {
+            protected void onBindViewHolder(@NotNull BookokayViewHolder viewHolder, int position, final SellingBook model) {
                 //get id and query to set book name and author
                 int sp=model.getSellingprice();
+                final String final_query=model.getBookid();
                 viewHolder.title.setText(model.getTitle());
                 viewHolder.category.setText(model.getCategory());
                 viewHolder.author.setText(model.getAuthor());
                 viewHolder.author.setText(String.valueOf(sp));
                 Glide.with(requireActivity()).load(model.getThumbnail()).placeholder(R.drawable.loading_shape).dontAnimate().into(viewHolder.thumbnail);
 
+                viewHolder.container.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getActivity() , BookInfoOrder.class);
+
+                        i.putExtra("book_id" ,final_query);
+                        i.putExtra("book_author" ,model.getAuthor());
+                        i.putExtra("book_title",model.getTitle());
+                        i.putExtra("book_thumbnail",model.getThumbnail());
+                        i.putExtra("book_desc",model.getDescription());
+                        i.putExtra("book_cat",model.getCategory());
+
+                        i.putExtra("link",model.getPreview());
+                        i.putExtra("sellerbookid", model.getSellerbookid());
+                        i.putExtra("seller",model.getSellerid());
+                        i.putExtra("rp",model.getRentingprice());
+                        i.putExtra("sp",model.getSellingprice());
+                        i.putExtra("dc",model.getDeliverycharges());
+                        i.putExtra("qu",model.getQuantities());
+
+                        startActivity(i);
+                    }
+                });
             }
         };
         adapter.startListening();

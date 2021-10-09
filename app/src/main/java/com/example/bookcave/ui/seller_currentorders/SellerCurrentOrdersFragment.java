@@ -86,8 +86,6 @@ public class SellerCurrentOrdersFragment extends Fragment {
                 String status=String.valueOf(model.getStatus());
                 final String orderid = String.valueOf(model.getOrderid());
                 final String address = model.getAddress();
-
-
                 //For book details
                 DocumentReference docRef1 = firebaseFirestore.collection("Orders").document(model.getBookid());
                 docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -101,7 +99,7 @@ public class SellerCurrentOrdersFragment extends Fragment {
                 viewHolder.row_orderupdate.setText(model.getUpdatedat());
                 viewHolder.row_add.setText("at "+address.substring(0,10)+" . . . ");
                 viewHolder.row_ostatus.setText(status);
-                viewHolder.row_details.setText("Update and view details");
+                viewHolder.row_details.setText(R.string.updatenview);
 
                 viewHolder.row_details.setOnClickListener(new View.OnClickListener() {
                     @Override

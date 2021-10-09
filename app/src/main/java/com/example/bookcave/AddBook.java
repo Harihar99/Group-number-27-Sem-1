@@ -33,11 +33,12 @@ public class AddBook extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private String userid;
     final String uniqueid= UUID.randomUUID().toString();
+    String up1,urp1,udp1,uq1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
-        Intent intent=getIntent();
+        final Intent intent=getIntent();
 
         final String book_title =intent.getStringExtra("book_title");
         final String image =intent.getStringExtra("book_thumbnail");
@@ -71,7 +72,10 @@ public class AddBook extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uq1=uquantity.getText().toString().trim(),up1=uprice.getText().toString().trim(),urp1=urprice.getText().toString().trim(),udp1=udprice.getText().toString().trim();
+                uq1=uquantity.getText().toString().trim();
+                up1=uprice.getText().toString().trim();
+                urp1=urprice.getText().toString().trim();
+                udp1=udprice.getText().toString().trim();
                 int uq=Integer.parseInt(uq1);
                 int up=Integer.parseInt(up1);
                 int urp=Integer.parseInt(urp1);
@@ -118,7 +122,7 @@ public class AddBook extends AppCompatActivity {
                         updateBtn.setText("Add book to selling list");
                         if(task.isSuccessful()) {
                             Toast.makeText(AddBook.this,"Stock added successfully", Toast.LENGTH_LONG).show();
-
+                            Intent i =new Intent(AddBook.this, HomeSeller.class);
                         } else{
                             String errorMessage = task.getException().getMessage();
                             Toast.makeText(AddBook.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();

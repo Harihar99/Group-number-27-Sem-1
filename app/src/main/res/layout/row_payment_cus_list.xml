@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textSize="15sp"
-            android:layout_gravity="end"
+            android:layout_gravity="center"
             android:paddingTop="15sp"
             android:paddingEnd="5sp"
             android:textColor="@color/green"

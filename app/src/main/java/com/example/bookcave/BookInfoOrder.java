@@ -71,7 +71,8 @@ public class BookInfoOrder extends AppCompatActivity {
             }
         });
 
-            DocumentReference docRef = db.collection("Users").document(sellerid);
+        assert sellerid != null;
+        DocumentReference docRef = db.collection("Users").document(sellerid);
 
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override

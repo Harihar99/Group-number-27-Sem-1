@@ -24,26 +24,24 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ContactDeveloperFragment extends Fragment {
-    Spinner spinner;
-    String severity,a;
-    EditText username,problemdesc;
-    Button sendmail;
-    private FirebaseAuth fAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private String severity;
+    private String name;
+    private EditText username,problemdesc;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_contact_developer, container, false);
 
-        fAuth = FirebaseAuth.getInstance();
-        a = fAuth.getCurrentUser().getUid();
-        spinner = root.findViewById(R.id.severityspinner);
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        String a = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+        Spinner spinner = root.findViewById(R.id.severityspinner);
         username = root.findViewById(R.id.user_name);
         problemdesc = root.findViewById(R.id.problem_description);
-        sendmail = root.findViewById(R.id.sendmail);
+        Button sendmail = root.findViewById(R.id.sendmail);
 
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Very Low");
@@ -61,7 +59,8 @@ public class ContactDeveloperFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                    username.setText(documentSnapshot.getString("firstname")+" "+documentSnapshot.getString("lastname"));
+                    name = documentSnapshot.getString("firstname")+" "+documentSnapshot.getString("lastname");
+                    username.setText(name);
                 }
             }
         });
@@ -93,7 +92,7 @@ public class ContactDeveloperFragment extends Fragment {
                 emailIntent.setType("message/rfc822");
                 // emailIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
                 emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"atharva464@gmail.com"});
-                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Report Severity : "+severity+" reported by "+a);
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Report Severity : "+severity+" reported by "+name);
                 emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, descrip);
                 startActivity(Intent.createChooser(emailIntent, "Choose an email client"));
 

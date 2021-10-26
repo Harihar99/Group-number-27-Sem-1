@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class AddBook extends AppCompatActivity {
@@ -102,7 +103,7 @@ public class AddBook extends AppCompatActivity {
                 fAuth = FirebaseAuth.getInstance();
                 final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                userid = fAuth.getCurrentUser().getUid();
+                userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
                 updateBtn.setText("Adding new stock...");
 
                 SellingBook sellingBook=new SellingBook(book_id,uniqueid,userid,uq,up,urp,udp,book_title,book_author,book_desc,book_cat,image,preview);
@@ -124,7 +125,7 @@ public class AddBook extends AppCompatActivity {
                             Toast.makeText(AddBook.this,"Stock added successfully", Toast.LENGTH_LONG).show();
                             Intent i =new Intent(AddBook.this, HomeSeller.class);
                         } else{
-                            String errorMessage = task.getException().getMessage();
+                            String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
                             Toast.makeText(AddBook.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                         }
                     }

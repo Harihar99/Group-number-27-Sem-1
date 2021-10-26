@@ -37,7 +37,7 @@ public class OrderHistoryC extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
     FirebaseAuth firebaseAuth;
     private String bn,ba,orderid;
-    private Query query;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +47,7 @@ public class OrderHistoryC extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefreshOrderHis);
         recyler_order_history_c = findViewById(R.id.recyler_order_history_c);
-        final String userid= firebaseAuth.getCurrentUser().getUid();
+        final String userid= Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         showOrderHistory(userid);
         recyler_order_history_c.setHasFixedSize(true);
         recyler_order_history_c.setLayoutManager(new LinearLayoutManager(this));
@@ -64,7 +64,7 @@ public class OrderHistoryC extends AppCompatActivity {
     }
 
     public void showOrderHistory(String userid) {
-        query = firebaseFirestore.collection("Orders").whereEqualTo("customerid",userid);
+        Query query = firebaseFirestore.collection("Orders").whereEqualTo("customerid", userid);
 
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()
                 .setQuery(query, Order.class)
@@ -81,7 +81,7 @@ public class OrderHistoryC extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(@NotNull OrdersViewHolder viewHolder, int position, @NotNull Order model) {
+            protected void onBindViewHolder(@NotNull final OrdersViewHolder viewHolder, int position, @NotNull Order model) {
                 final String bookid = model.getBookid();
                 //For book details
                 firebaseFirestore.collection("SellingList").whereEqualTo("bookid",bookid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -91,13 +91,13 @@ public class OrderHistoryC extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 bn = document.getString("title");
                                 ba = document.getString("author");
+                                viewHolder.row_bname.setText(bn);
+                                viewHolder.row_bauthor.setText(ba);
                             }
                         }
                     }
                 });
                 orderid=model.getOrderid();
-                viewHolder.row_bname.setText(bn);
-                viewHolder.row_bauthor.setText(ba);
                 viewHolder.row_bstatus.setText(model.getStatus());
                 viewHolder.row_bprice.setText(String.valueOf(model.getPrice()));
                 viewHolder.row_updatedon.setText(String.valueOf(model.getUpdatedat()));
@@ -114,7 +114,7 @@ public class OrderHistoryC extends AppCompatActivity {
         adapter.startListening();
         recyler_order_history_c.setAdapter(adapter);
     }
-        public class OrdersViewHolder extends RecyclerView.ViewHolder {
+        public static class OrdersViewHolder extends RecyclerView.ViewHolder {
             View mView;
             LinearLayout container; //row_order_cus_list
             TextView row_bname,row_bauthor,row_bprice,row_bstatus,row_updatedon;

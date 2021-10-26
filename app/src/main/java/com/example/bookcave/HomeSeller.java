@@ -47,10 +47,9 @@ public class HomeSeller extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.logoutButtonHeader:
-                openDialog();
-                return true;
+        if (item.getItemId() == R.id.logoutButtonHeader) {
+            openDialog();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

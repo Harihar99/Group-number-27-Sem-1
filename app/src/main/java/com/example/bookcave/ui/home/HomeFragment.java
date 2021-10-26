@@ -1,5 +1,6 @@
 package com.example.bookcave.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -59,6 +60,7 @@ public class HomeFragment extends Fragment {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat(" EEEE, dd-MM-yyyy hh:mm:ss a");
         dateTime = simpleDateFormat.format(calender.getTime());
         firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @SuppressLint("DefaultLocale")
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 long sum=0;
@@ -76,8 +78,8 @@ public class HomeFragment extends Fragment {
                         accepted_count = accepted_count + sp;
                     }
                 }
-                tprofit.setText(String.valueOf(sum)+" ₹");
-                tpprofit.setText("+"+String.valueOf(accepted_count)+" ₹");
+                tprofit.setText(String.format("%d ₹", sum));
+                tpprofit.setText(String.format("+%s ₹", String.valueOf(accepted_count)));
                 torder.setText(String.valueOf(count));
             }
         });
@@ -118,7 +120,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NotNull UnacceptedsViewHolder viewHolder, int position, Order model) {
+            protected void onBindViewHolder(@NotNull final UnacceptedsViewHolder viewHolder, int position, Order model) {
                 //get id and query to set book name and author
                 viewHolder.row_orderedon.setText(model.getUpdatedat());
                 viewHolder.row_add.setText(model.getAddress());
@@ -132,11 +134,12 @@ public class HomeFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 bookname = document.getString("title");
+                                viewHolder.row_bookname.setText(String.format("For: %s", bookname));
                             }
                         }
                     }
                 });
-                viewHolder.row_bookname.setText(String.format("For: %s", bookname));
+
 
                 viewHolder.acc_order.setOnClickListener(new View.OnClickListener() {
                     @Override

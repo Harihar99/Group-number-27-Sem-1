@@ -7,13 +7,15 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Objects;
+
 public class Placed extends AppCompatActivity {
     Button backtomenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_placed);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         backtomenu= findViewById(R.id.backtomenu);
         backtomenu.setOnClickListener(new View.OnClickListener() {

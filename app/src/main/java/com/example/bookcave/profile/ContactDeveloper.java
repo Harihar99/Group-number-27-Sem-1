@@ -20,11 +20,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ContactDeveloper extends AppCompatActivity {
 
     Spinner spinner;
-    String severity,a;
+    String severity,a,name;
     EditText username,problemdesc;
     Button sendmail;
     private FirebaseAuth fAuth;
@@ -35,7 +36,8 @@ public class ContactDeveloper extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_developer);
         fAuth = FirebaseAuth.getInstance();
-        a = fAuth.getCurrentUser().getUid();
+        a = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
         spinner = findViewById(R.id.severityspinner);
         username = findViewById(R.id.user_name);
         problemdesc = findViewById(R.id.problem_description);
@@ -56,9 +58,9 @@ public class ContactDeveloper extends AppCompatActivity {
         typeref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    username.setText(documentSnapshot.getString("firstname")+" "+documentSnapshot.getString("lastname"));
-                }
+                if (documentSnapshot.exists())
+                    name = documentSnapshot.getString("firstname")+" "+documentSnapshot.getString("lastname");
+                    username.setText(String.format("%s", name));
             }
         });
 
@@ -89,7 +91,7 @@ public class ContactDeveloper extends AppCompatActivity {
                 emailIntent.setType("message/rfc822");
                 // emailIntent.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
                 emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"atharva464@gmail.com"});
-                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Report Severity : "+severity+" reported by "+a);
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Report Severity : "+severity+" reported by "+name);
                 emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, descrip);
                 startActivity(Intent.createChooser(emailIntent, "Choose an email client"));
 

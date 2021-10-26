@@ -15,8 +15,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 1700;
     private FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         //Checked signed
         fAuth = FirebaseAuth.getInstance();
         mAuthStateListener =new FirebaseAuth.AuthStateListener() {
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                                 String type = documentSnapshot.getString("usertype");
                                 String nam = documentSnapshot.getString("firstname");
                                 Toast.makeText(MainActivity.this, "Logged in Successfully as " + nam, Toast.LENGTH_SHORT).show();
+                                assert type != null;
                                 if (type.equals("Customer")) {
                                     Intent intent = new Intent(MainActivity.this, HomeCustomer.class);
                                     startActivity(intent);
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        int SPLASH_TIME_OUT = 1700;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

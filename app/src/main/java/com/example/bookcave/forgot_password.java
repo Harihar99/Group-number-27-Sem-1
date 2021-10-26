@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class forgot_password extends AppCompatActivity {
 
     EditText resetemailInput;
@@ -47,7 +49,7 @@ public class forgot_password extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast.makeText(forgot_password.this,"Check your email inbox", Toast.LENGTH_LONG).show();
                             }else{
-                                String errorMessage= task.getException().getMessage();
+                                String errorMessage= Objects.requireNonNull(task.getException()).getMessage();
                                 Toast.makeText(forgot_password.this,"Error: " + errorMessage, Toast.LENGTH_LONG).show();
                             }
                             resetProgressBar.setVisibility(View.GONE);

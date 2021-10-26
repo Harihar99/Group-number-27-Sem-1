@@ -68,17 +68,17 @@ public class ViewOrderCustomer extends AppCompatActivity {
                     String oa = documentSnapshot.getString("orderedat");
                     String s = documentSnapshot.getString("status");
                     String otp = documentSnapshot.getString("otp");
-                    int ta = documentSnapshot.getLong("totalamount").intValue();
+                    int ta = Objects.requireNonNull(documentSnapshot.getLong("totalamount")).intValue();
                     bookid = documentSnapshot.getString("bookid");
 
                     sotp.setText(String.valueOf(otp));
-                    stotalamount.setText("Total amount: "+String.valueOf(ta));
+                    stotalamount.setText(String.format("Total amount: %s", String.valueOf(ta)));
                     spin.setText(pc);
                     saddress.setText(ad);
                     semail.setText(mailid);
                     sphno.setText(phno);
                     sorderon.setText(oa);
-                    sstatus.setText(s+": ");
+                    sstatus.setText(String.format("%s: ", s));
                 }
             }
         });

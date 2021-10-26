@@ -1,5 +1,6 @@
 package com.example.bookcave.ui.seller_currentorders;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,12 +30,13 @@ import com.google.firebase.firestore.Query;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class SellerCurrentOrdersFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView recyler_updateorder_s;
     private FirestoreRecyclerAdapter adapter;
-    FirebaseAuth firebaseAuth;
-    private Query query;
+    private FirebaseAuth firebaseAuth;
     private String bookname;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,7 +47,7 @@ public class SellerCurrentOrdersFragment extends Fragment {
         recyler_updateorder_s = root.findViewById(R.id.recyler_updateorder_s);
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        final String current_user_id = firebaseAuth.getCurrentUser().getUid();
+        final String current_user_id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         showorder(current_user_id);
         recyler_updateorder_s.setHasFixedSize(true);
         recyler_updateorder_s.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -64,13 +66,14 @@ public class SellerCurrentOrdersFragment extends Fragment {
 
     private void showorder(String userid)
     {
-        query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid);
+        Query query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid", userid);
 
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()
                 .setQuery(query, Order.class)
                 .build();
 
         adapter = new FirestoreRecyclerAdapter<Order, FiltersViewHolder>(options) {
+            @NotNull
             @Override
             public FiltersViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
@@ -79,8 +82,9 @@ public class SellerCurrentOrdersFragment extends Fragment {
                 return new FiltersViewHolder(view);
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
-            protected void onBindViewHolder(@NotNull FiltersViewHolder viewHolder, int position, Order model) {
+            protected void onBindViewHolder(@NotNull final FiltersViewHolder viewHolder, int position, @NotNull Order model) {
                 //get id and query to set book name and author
 
                 String status=String.valueOf(model.getStatus());
@@ -91,13 +95,15 @@ public class SellerCurrentOrdersFragment extends Fragment {
                 docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) { bookname = documentSnapshot.getString("title"); }
+                        if (documentSnapshot.exists()) {
+                            bookname = documentSnapshot.getString("title");
+                            viewHolder.row_bb.setText(bookname);}
                     }
                 });
-                viewHolder.row_bb.setText(bookname);
+
                 viewHolder.row_add.setText(model.getAddress());
                 viewHolder.row_orderupdate.setText(model.getUpdatedat());
-                viewHolder.row_add.setText("at "+address.substring(0,10)+" . . . ");
+                viewHolder.row_add.setText(String.format("at %s . . . ", address.substring(0, 10)));
                 viewHolder.row_ostatus.setText(status);
                 viewHolder.row_details.setText(R.string.updatenview);
 
@@ -115,7 +121,7 @@ public class SellerCurrentOrdersFragment extends Fragment {
         recyler_updateorder_s.setAdapter(adapter);
     }
 
-    public class FiltersViewHolder extends RecyclerView.ViewHolder {
+    public static class FiltersViewHolder extends RecyclerView.ViewHolder {
         View mView;
         LinearLayout container; //row_filter_s_list
         TextView row_ostatus,row_bb,row_orderupdate,row_add;

@@ -36,7 +36,7 @@ public class PaymentHistoryC extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
     public String reason;
     FirebaseAuth firebaseAuth;
-    private Query query;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,7 @@ public class PaymentHistoryC extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefreshPaymentHis);
         recyler_payment_history_c = findViewById(R.id.recyler_payment_history_c);
-        final String userid= firebaseAuth.getCurrentUser().getUid();
+        final String userid= Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         showPaymentHistory(userid);
         recyler_payment_history_c.setHasFixedSize(true);
         recyler_payment_history_c.setLayoutManager(new LinearLayoutManager(this));
@@ -63,13 +63,14 @@ public class PaymentHistoryC extends AppCompatActivity {
     }
 
     public void showPaymentHistory(String userid) {
-        query = firebaseFirestore.collection("Orders").whereEqualTo("customerid",userid);
+        Query query = firebaseFirestore.collection("Orders").whereEqualTo("customerid", userid);
 
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()
                 .setQuery(query, Order.class)
                 .build();
 
         adapter = new FirestoreRecyclerAdapter<Order, PaymentsViewHolder>(options) {
+            @NotNull
             @Override
             public PaymentsViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
@@ -79,9 +80,9 @@ public class PaymentHistoryC extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(@NotNull PaymentsViewHolder viewHolder, int position, Order model) {
+            protected void onBindViewHolder(@NotNull final PaymentsViewHolder viewHolder, int position, @NotNull Order model) {
                 //get id and query to set book name and author
-                viewHolder.row_amount.setText(String.valueOf(model.getPrice())+" ₹");
+                viewHolder.row_amount.setText(String.format("%s ₹", String.valueOf(model.getPrice())));
                 viewHolder.row_paidon.setText(String.valueOf(model.getUpdatedat()));
                 String status=String.valueOf(model.getStatus());
 
@@ -98,18 +99,19 @@ public class PaymentHistoryC extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 reason = document.getString("title");
+                                viewHolder.row_for.setText(String.format("For: %s", reason));
                             }
                         }
                     }
                 });
-                viewHolder.row_for.setText("For: "+reason);
+
             }
         };
         adapter.startListening();
         recyler_payment_history_c.setAdapter(adapter);
     }
 
-    public class PaymentsViewHolder extends RecyclerView.ViewHolder {
+    public static class PaymentsViewHolder extends RecyclerView.ViewHolder {
         View mView;
         LinearLayout container; //row_payment_cus_list
         TextView row_amount,row_paidon,row_for,row_pstatus;

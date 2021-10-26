@@ -23,14 +23,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SellerProfileFragment extends Fragment {
 
-    EditText ufirstname,ulastname,uphno_owner,ushopname,ugstno,uaddress,upincode,uphno_company,verifyemail;
+    private EditText ufirstname,ulastname,uphno_owner,ushopname,ugstno,uaddress,upincode,uphno_company,verifyemail;
     private String semail,sfirstname,slastname,saddress,spincode,userid,sphno_owner,sphno_company,sshopname,sgstno;
-    private Button updateButton;
-    private FirebaseAuth fAuth;
-    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class SellerProfileFragment extends Fragment {
         ugstno = root.findViewById(R.id.ugstno);
         verifyemail =root.findViewById(R.id.verifyemail);
         //Button
-        updateButton = root.findViewById(R.id.updateButton);
+        Button updateButton = root.findViewById(R.id.updateButton);
 
         ugstno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,8 +55,8 @@ public class SellerProfileFragment extends Fragment {
             }
         });
 
-        fAuth = FirebaseAuth.getInstance();
-        userid = fAuth.getCurrentUser().getUid();
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         DocumentReference typeref = db.collection("Users").document(userid);
         typeref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -180,7 +179,7 @@ public class SellerProfileFragment extends Fragment {
                     Toast.makeText(getActivity(),"Information updated successfully", Toast.LENGTH_LONG).show();
 
                 } else{
-                    String errorMessage = task.getException().getMessage();
+                    String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
                     Toast.makeText(getActivity(), "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                 }
             }

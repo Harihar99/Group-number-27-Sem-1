@@ -47,7 +47,6 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
-    private ImageButton search_main_btn;
     private EditText search_main;
     private TextView No_result;
     private ArrayList<Book> mBooks;
@@ -55,11 +54,7 @@ public class SearchFragment extends Fragment {
     private RecyclerView recyclerview_main;
     private SBRecyclerViewAdapter mAdapter;
     private FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
-    private FirestoreRecyclerAdapter adapter;
-    private Query query;
     private ToggleButton toggleButton;
-    //fs
-    private FirebaseAuth fAuth;
     final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static  final  String BASE_URL="https://www.googleapis.com/books/v1/volumes?q=";
 
@@ -67,10 +62,11 @@ public class SearchFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_search, container, false);
 
-        fAuth = FirebaseAuth.getInstance();
+        //fs
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
         toggleButton=root.findViewById(R.id.toggleButton);
         search_main=root.findViewById(R.id.search_main);
-        search_main_btn=root.findViewById(R.id.search_main_btn);
+        ImageButton search_main_btn = root.findViewById(R.id.search_main_btn);
         No_result=root.findViewById(R.id.No_result);
         recyclerview_main=root.findViewById(R.id.recyclerview_main);
         recyclerview_main.setHasFixedSize(true);
@@ -112,12 +108,13 @@ public class SearchFragment extends Fragment {
 
     private void searchFirestore(String input_given) {
         //Insert the code for searching a book in firebase
-        query = firebaseFirestore.collection("SellingList").whereEqualTo("title",input_given);
+        Query query = firebaseFirestore.collection("SellingList").whereEqualTo("title", input_given);
         FirestoreRecyclerOptions<SellingBook> options = new FirestoreRecyclerOptions.Builder<SellingBook>()
                 .setQuery(query, SellingBook.class)
                 .build();
 
-        adapter = new FirestoreRecyclerAdapter<SellingBook, BookokayViewHolder>(options) {
+        //get id and query to set book name and author
+        FirestoreRecyclerAdapter adapter = new FirestoreRecyclerAdapter<SellingBook, BookokayViewHolder>(options) {
             @Override
             public BookokayViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
@@ -129,8 +126,8 @@ public class SearchFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NotNull BookokayViewHolder viewHolder, int position, final SellingBook model) {
                 //get id and query to set book name and author
-                int sp=model.getSellingprice();
-                final String final_query=model.getBookid();
+                int sp = model.getSellingprice();
+                final String final_query = model.getBookid();
                 viewHolder.title.setText(model.getTitle());
                 viewHolder.category.setText(model.getCategory());
                 viewHolder.author.setText(model.getAuthor());
@@ -140,22 +137,22 @@ public class SearchFragment extends Fragment {
                 viewHolder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(getActivity() , BookInfoOrder.class);
+                        Intent i = new Intent(getActivity(), BookInfoOrder.class);
 
-                        i.putExtra("book_id" ,final_query);
-                        i.putExtra("book_author" ,model.getAuthor());
-                        i.putExtra("book_title",model.getTitle());
-                        i.putExtra("book_thumbnail",model.getThumbnail());
-                        i.putExtra("book_desc",model.getDescription());
-                        i.putExtra("book_cat",model.getCategory());
+                        i.putExtra("book_id", final_query);
+                        i.putExtra("book_author", model.getAuthor());
+                        i.putExtra("book_title", model.getTitle());
+                        i.putExtra("book_thumbnail", model.getThumbnail());
+                        i.putExtra("book_desc", model.getDescription());
+                        i.putExtra("book_cat", model.getCategory());
 
-                        i.putExtra("link",model.getPreview());
+                        i.putExtra("link", model.getPreview());
                         i.putExtra("sellerbookid", model.getSellerbookid());
-                        i.putExtra("seller",model.getSellerid());
-                        i.putExtra("rp",model.getRentingprice());
-                        i.putExtra("sp",model.getSellingprice());
-                        i.putExtra("dc",model.getDeliverycharges());
-                        i.putExtra("qu",model.getQuantities());
+                        i.putExtra("seller", model.getSellerid());
+                        i.putExtra("rp", model.getRentingprice());
+                        i.putExtra("sp", model.getSellingprice());
+                        i.putExtra("dc", model.getDeliverycharges());
+                        i.putExtra("qu", model.getQuantities());
 
                         startActivity(i);
                     }
@@ -259,7 +256,7 @@ public class SearchFragment extends Fragment {
 
     }
 
-    public class BookokayViewHolder extends RecyclerView.ViewHolder {
+    public static class BookokayViewHolder extends RecyclerView.ViewHolder {
         View mView;
         LinearLayout container; //row_filter_s_list
         TextView title,category,price,author;

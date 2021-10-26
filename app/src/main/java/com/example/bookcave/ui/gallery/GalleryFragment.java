@@ -35,15 +35,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class GalleryFragment extends Fragment {
 
-    private ImageButton search_book_btn;
     private EditText search_book;
     private RecyclerView result_list;
-    private ProgressBar loading_indicator;
     private TextView error_message;
     private ArrayList<Book> mBooks;
     private ABRecyclerViewAdapter mAdapter;
@@ -55,17 +54,17 @@ public class GalleryFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        search_book_btn=root.findViewById(R.id.search_book_btn);
+        ImageButton search_book_btn = root.findViewById(R.id.search_book_btn);
         search_book=root.findViewById(R.id.search_book);
         result_list=root.findViewById(R.id.result_list);
-        loading_indicator=root.findViewById(R.id.loading_indicator);
+        ProgressBar loading_indicator = root.findViewById(R.id.loading_indicator);
         error_message= root.findViewById(R.id.message_display);
         mBooks = new ArrayList<>();
         result_list.setHasFixedSize(true);
         result_list.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mBooks = new ArrayList<>();
-        mRequestQueue = Volley.newRequestQueue(getActivity());
+        mRequestQueue = Volley.newRequestQueue(requireActivity());
 
         search_book_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +159,7 @@ public class GalleryFragment extends Fragment {
     private boolean Read_network_state(Context context)
     {    boolean is_connected;
         ConnectivityManager cm =(ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
+        assert cm != null;
         NetworkInfo info = cm.getActiveNetworkInfo();
         is_connected=info!=null&&info.isConnectedOrConnecting();
         return is_connected;
@@ -168,7 +168,7 @@ public class GalleryFragment extends Fragment {
     private void search() {
         String search_query = search_book.getText().toString();
 
-        boolean is_connected = Read_network_state(getActivity());
+        boolean is_connected = Read_network_state(requireActivity());
         if(!is_connected)
         {
             error_message.setText(R.string.Failed_to_Load_data);

@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreateAccountCustomer extends AppCompatActivity {
 
@@ -98,7 +99,7 @@ public class CreateAccountCustomer extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            userid = fAuth.getCurrentUser().getUid();
+                            userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
                             Map<String, Object> user = new HashMap<>();
                             user.put("userid", userid);
                             user.put("email", semail);
@@ -121,7 +122,7 @@ public class CreateAccountCustomer extends AppCompatActivity {
                                         startActivity(i);
                                     } else{
                                         createaccButton.setText("Create Account");
-                                        String errorMessage = task.getException().getMessage();
+                                        String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
                                         Toast.makeText(CreateAccountCustomer.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                                     }
                                 }

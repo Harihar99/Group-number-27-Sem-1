@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.example.bookcave.CustomerLogin;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class LogoutDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
@@ -27,7 +29,7 @@ public class LogoutDialog extends AppCompatDialogFragment {
                         FirebaseAuth.getInstance().signOut();
                         Intent intent=new Intent(getActivity(), CustomerLogin.class);
                         startActivity(intent);
-                        getActivity().finish();
+                        requireActivity().finish();
 
                     }
                 })

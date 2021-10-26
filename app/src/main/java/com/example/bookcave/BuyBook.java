@@ -1,5 +1,6 @@
 package com.example.bookcave;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class BuyBook extends AppCompatActivity {
@@ -36,8 +38,16 @@ public class BuyBook extends AppCompatActivity {
     public Button order;
     public ImageView bthumbnail;
     private int total;
-    private String userid,bookid,bookauthor,booktitle,image,rprice,genre,mailid,sid,dateTime,sbid;
-    private int sprice,dprice,available;
+    private String userid;
+    private String bookid;
+    private String rprice;
+    private String mailid;
+    private String sid;
+    private String dateTime;
+    private String sbid;
+    private int sprice;
+    private int dprice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +55,7 @@ public class BuyBook extends AppCompatActivity {
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         final String uniqueid= UUID.randomUUID().toString();
         Calendar calender= Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat=new SimpleDateFormat(" EEEE, dd-MM-yyyy hh:mm:ss a");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat=new SimpleDateFormat(" EEEE, dd-MM-yyyy hh:mm:ss a");
         dateTime = simpleDateFormat.format(calender.getTime());
 
         oname=findViewById(R.id.oname);
@@ -66,30 +76,30 @@ public class BuyBook extends AppCompatActivity {
         //get the order information
         bookid = getIntent().getStringExtra("book_id");
         sbid= getIntent().getStringExtra("sellerbookid");
-        bookauthor = getIntent().getStringExtra("book_author");
-        booktitle= getIntent().getStringExtra("book_title");
-        image= getIntent().getStringExtra("book_thumbnail");
-        genre= getIntent().getStringExtra("book_cat");
+        String bookauthor = getIntent().getStringExtra("book_author");
+        String booktitle = getIntent().getStringExtra("book_title");
+        String image = getIntent().getStringExtra("book_thumbnail");
+        String genre = getIntent().getStringExtra("book_cat");
         sprice= getIntent().getIntExtra("sp",0);
         dprice= getIntent().getIntExtra("dc",0);
-        available = getIntent().getIntExtra("qu",0);
+        int available = getIntent().getIntExtra("qu", 0);
 
         //set text
         Glide.with(BuyBook.this).load(image).placeholder(R.drawable.loading_shape).dontAnimate().into(bthumbnail);
         obname.setText(booktitle);
         obauthorname.setText(bookauthor);
         ogenre.setText(genre);
-        oprice.setText(String.valueOf(sprice)+" ₹");
+        oprice.setText(String.format("%s ₹", String.valueOf(sprice)));
         ogenre.setText("");
-        oitemprice.setText(String.valueOf(sprice)+" ₹");
-        odeliprice.setText(String.valueOf(dprice)+" ₹");
+        oitemprice.setText(String.format("%s ₹", String.valueOf(sprice)));
+        odeliprice.setText(String.format("%s ₹", String.valueOf(dprice)));
         total=sprice+dprice;
-        ototalprice.setText(String.valueOf(total)+" ₹");
-        famount.setText("₹ "+String.valueOf(total));
+        ototalprice.setText(String.format("%s ₹", String.valueOf(total)));
+        famount.setText(String.format("₹ %s", String.valueOf(total)));
 
         //get all the data
         FirebaseAuth fAuth = FirebaseAuth.getInstance();
-        userid = fAuth.getCurrentUser().getUid();
+        userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         //For user/customer
         DocumentReference docRef = db.collection("Users").document(userid);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -170,7 +180,7 @@ public class BuyBook extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                String errorMessage = task.getException().getMessage();
+                                String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
                                 Toast.makeText(BuyBook.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                             }
                         }

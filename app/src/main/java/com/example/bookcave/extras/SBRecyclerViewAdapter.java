@@ -23,13 +23,12 @@ public class SBRecyclerViewAdapter extends RecyclerView.Adapter<SBRecyclerViewAd
 
     private Context mContext;
     private List<Book> mData;
-    private RequestOptions options;
 
     public SBRecyclerViewAdapter(Context mContext, List<Book> mData)
     {
         this.mContext = mContext;
         this.mData = mData;
-        options = new RequestOptions().centerCrop().error(R.drawable.loading_shape);
+        RequestOptions options = new RequestOptions().centerCrop().error(R.drawable.loading_shape);
     }
 
     @NonNull
@@ -82,12 +81,12 @@ public class SBRecyclerViewAdapter extends RecyclerView.Adapter<SBRecyclerViewAd
         return mData.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    static class MyViewHolder extends RecyclerView.ViewHolder{
 
         ImageView tvThumbnail ;
         TextView tvTitle , tvCategory , tvPrice , tvAuthor;
         LinearLayout container ;
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvThumbnail = itemView.findViewById(R.id.thumbnail);

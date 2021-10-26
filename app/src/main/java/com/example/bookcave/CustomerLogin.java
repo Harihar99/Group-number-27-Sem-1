@@ -22,6 +22,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 public class CustomerLogin extends AppCompatActivity {
     String userid;
     EditText emailInput,passwordInput;
@@ -35,7 +37,7 @@ public class CustomerLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_login);
         //Hide the ActionBar
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         //ViewBinding
         emailInput = findViewById(R.id.emailInput);
         LogInProgress = findViewById(R.id.LogInProgress);
@@ -118,7 +120,7 @@ public class CustomerLogin extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
 
-                            userid = fAuth.getCurrentUser().getUid();
+                            userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
                             DocumentReference typeref = db.collection("Users").document(userid);
                             typeref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
@@ -126,6 +128,7 @@ public class CustomerLogin extends AppCompatActivity {
                                         if(documentSnapshot.exists()){
                                             String type= documentSnapshot.getString("usertype");
                                             Toast.makeText(CustomerLogin.this, "Logged in Successfully as "+type, Toast.LENGTH_SHORT).show();
+                                            assert type != null;
                                             if(type.equals("Customer")){
                                                 Intent intent = new Intent(CustomerLogin.this, HomeCustomer.class);
                                                 startActivity(intent);
@@ -142,7 +145,7 @@ public class CustomerLogin extends AppCompatActivity {
                             });
 
                         } else {
-                            String errorMessage = task.getException().getMessage();
+                            String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
                             Toast.makeText(CustomerLogin.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                         }
                         loginButton.setText("Sign In");

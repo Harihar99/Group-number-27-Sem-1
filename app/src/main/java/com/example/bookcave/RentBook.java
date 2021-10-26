@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class RentBook extends AppCompatActivity {
@@ -86,9 +87,9 @@ public class RentBook extends AppCompatActivity {
                 showdays.setText(String.valueOf(days));
                 newsp=sprice*progress;
                 total=newsp+dprice;
-                oitemprice.setText(String.valueOf(newsp)+" ₹");
-                ototalprice.setText(String.valueOf(total)+" ₹");
-                famount.setText("₹ "+String.valueOf(total));
+                oitemprice.setText(String.format("%s ₹", String.valueOf(newsp)));
+                ototalprice.setText(String.format("%s ₹", String.valueOf(total)));
+                famount.setText(String.format("₹ %s", String.valueOf(total)));
             }
 
             @Override
@@ -106,17 +107,17 @@ public class RentBook extends AppCompatActivity {
         obname.setText(booktitle);
         obauthorname.setText(bookauthor);
         ogenre.setText(genre);
-        oprice.setText(String.valueOf(sprice)+" ₹");
+        oprice.setText(String.format("%s ₹", String.valueOf(sprice)));
         ogenre.setText("");
-        oitemprice.setText(String.valueOf(sprice)+" ₹");
-        odeliprice.setText(String.valueOf(dprice)+" ₹");
+        oitemprice.setText(String.format("%s ₹", String.valueOf(sprice)));
+        odeliprice.setText(String.format("%s ₹", String.valueOf(dprice)));
         //total=sprice+dprice;
-        ototalprice.setText(String.valueOf(total)+" ₹");
-        famount.setText("₹ "+String.valueOf(total));
+        ototalprice.setText(String.format("%s ₹", String.valueOf(total)));
+        famount.setText(String.format("₹ %s", String.valueOf(total)));
 
         //get all the data
         FirebaseAuth fAuth = FirebaseAuth.getInstance();
-        userid = fAuth.getCurrentUser().getUid();
+        userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         //For user/customer
         DocumentReference docRef = db.collection("Users").document(userid);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

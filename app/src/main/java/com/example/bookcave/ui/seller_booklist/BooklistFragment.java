@@ -1,5 +1,6 @@
 package com.example.bookcave.ui.seller_booklist;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,20 +22,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.Objects;
+
 public class BooklistFragment extends Fragment {
 
-    TextView empty_messsage;
-    RecyclerView recyclerView;
-    String userid,title,thumbnail,author;
-    private FirebaseAuth fAuth;
-    final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private TextView empty_messsage;
+    private RecyclerView recyclerView;
+    private String title;
+    private String thumbnail;
+    private String author;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static  final  String BASE_URL="https://www.googleapis.com/books/v1/volumes?q=";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_booklist, container, false);
-        fAuth = FirebaseAuth.getInstance();
-        userid = fAuth.getCurrentUser().getUid();
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        String userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         empty_messsage=root.findViewById(R.id.empty_message);
         recyclerView=root.findViewById(R.id.seller_book_list);
         recyclerView.setHasFixedSize(true);
@@ -59,16 +63,17 @@ public class BooklistFragment extends Fragment {
                 return new SellingBooksViewHolder(view);
             }
 
+            @SuppressLint("DefaultLocale")
             @Override
             protected void onBindViewHolder(SellingBooksViewHolder viewHolder, int position, final SellingBook model) {
                 //final String post_id = getRef(position).getKey();
-                viewHolder.row_price.setText(model.getSellingprice()+" INR");
-                viewHolder.row_quantity.setText(model.getQuantities()+"pcs available");
+                viewHolder.row_price.setText(String.format("%d INR", model.getSellingprice()));
+                viewHolder.row_quantity.setText(String.format("%dpcs available", model.getQuantities()));
                 String final_query=model.getBookid();
                 viewHolder.row_title.setText(model.getTitle());
                 viewHolder.row_author.setText(model.getAuthor());
                 //load image from internet and set it into imageView using Glide
-               Glide.with(getContext()).load(model.getThumbnail()).placeholder(R.drawable.loading_shape).dontAnimate().into(viewHolder.row_thumbnail);
+               Glide.with(requireContext()).load(model.getThumbnail()).placeholder(R.drawable.loading_shape).dontAnimate().into(viewHolder.row_thumbnail);
 
             }
         };
@@ -76,12 +81,12 @@ public class BooklistFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private class SellingBooksViewHolder extends RecyclerView.ViewHolder {
+    private static class SellingBooksViewHolder extends RecyclerView.ViewHolder {
         View mView;
         ImageView row_thumbnail;
         TextView row_title,row_author,row_price,row_quantity;
 
-        public SellingBooksViewHolder(@NonNull View itemView) {
+        SellingBooksViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
             row_thumbnail= mView.findViewById(R.id.row_thumbnail);

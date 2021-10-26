@@ -1,5 +1,6 @@
 package com.example.bookcave.extras;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebSettings;
@@ -13,6 +14,7 @@ import com.example.bookcave.R;
 public class PreviewBook extends AppCompatActivity {
 
     WebView webView;
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

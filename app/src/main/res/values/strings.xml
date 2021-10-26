@@ -130,5 +130,8 @@
     <string name="any_valid_identity_proof_like_aadhar_card_pan_card_license_card_voting_card_would_be_considered">Any valid identity proof like Aadhar card, PAN card, License card, voting card would be considered.</string>
     <string name="any_valid_identity_proof_like_electricity_bill_rent_agreement_aadhar_card_would_be_considered">Any valid identity proof like Electricity bill, Rent agreement, Aadhar card would be considered.</string>
     <string name="updatenview">Update/view details</string>
+    <string name="recevied">Received</string>
+    <string name="tobereceived">to be received</string>
+    <string name="rejectedorder">Order rejected</string>
 
 </resources>

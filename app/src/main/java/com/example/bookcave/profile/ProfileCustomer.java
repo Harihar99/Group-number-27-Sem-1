@@ -22,10 +22,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ProfileCustomer extends AppCompatActivity {
 
-    private Button updateButton;
     private EditText ufirstname,ulastname,uphno,uaddress,upincode,verifyemail;
     private String semail,sfirstname,slastname,sphno,saddress,spincode,userid;
     ProgressBar uProgress;
@@ -43,12 +43,12 @@ public class ProfileCustomer extends AppCompatActivity {
         uphno = findViewById(R.id.uphno);
         uaddress = findViewById(R.id.uaddress);
         upincode = findViewById(R.id.upincode);
-        updateButton = findViewById(R.id.updateButton);
+        Button updateButton = findViewById(R.id.updateButton);
         verifyemail = findViewById(R.id.verifyemail);
         uProgress = findViewById(R.id.uProgress);
 
         fAuth = FirebaseAuth.getInstance();
-        userid = fAuth.getCurrentUser().getUid();
+        userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         DocumentReference typeref = db.collection("Users").document(userid);
         typeref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -121,7 +121,7 @@ public class ProfileCustomer extends AppCompatActivity {
         uProgress.setVisibility(View.VISIBLE);
         fAuth = FirebaseAuth.getInstance();
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        userid = fAuth.getCurrentUser().getUid();
+        userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         Map<String, Object> user = new HashMap<>();
         user.put("firstname", updatefn);
         user.put("lastname", updateln);
@@ -140,7 +140,7 @@ public class ProfileCustomer extends AppCompatActivity {
 
                 } else{
                     uProgress.setVisibility(View.INVISIBLE);
-                    String errorMessage = task.getException().getMessage();
+                    String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
                     Toast.makeText(ProfileCustomer.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                 }
             }

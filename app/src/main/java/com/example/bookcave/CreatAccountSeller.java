@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreatAccountSeller extends AppCompatActivity {
 
@@ -126,7 +127,7 @@ public class CreatAccountSeller extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            userid = fAuth.getCurrentUser().getUid();
+                            userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
                             Map<String, Object> user = new HashMap<>();
                             user.put("userid", userid);
                             user.put("email", semail);
@@ -152,7 +153,7 @@ public class CreatAccountSeller extends AppCompatActivity {
                                         startActivity(i);
                                     } else{
                                         createaccButton.setText("Create Account");
-                                        String errorMessage = task.getException().getMessage();
+                                        String errorMessage = Objects.requireNonNull(task.getException()).getMessage();
                                         Toast.makeText(CreatAccountSeller.this, "Error: " + errorMessage, Toast.LENGTH_LONG).show();
                                     }
                                 }
@@ -162,7 +163,7 @@ public class CreatAccountSeller extends AppCompatActivity {
                             //Users info = new Users(fullName,email,phone,userid); class with getter setter
 
                         }else {
-                            Toast.makeText(CreatAccountSeller.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreatAccountSeller.this, "Error! " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -1,5 +1,6 @@
 package com.example.bookcave.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,20 +27,21 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomecFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
-    private RecyclerView recyler_home_page_books;
     private FirestoreRecyclerAdapter adapter;
-    private Query query;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_homec, container, false);
         firebaseFirestore=FirebaseFirestore.getInstance();
-        recyler_home_page_books=root.findViewById(R.id.recyler_home_page_books);
+        RecyclerView recyler_home_page_books = root.findViewById(R.id.recyler_home_page_books);
         final SwipeRefreshLayout pullToRefresh = root.findViewById(R.id.pullToRefresh);
         showNewAvailables();
         recyler_home_page_books.setHasFixedSize(true);
@@ -64,29 +66,31 @@ public class HomecFragment extends Fragment {
     }
 
     private void showNewAvailables() {
-        query=firebaseFirestore.collection("SellingList");
+        Query query = firebaseFirestore.collection("SellingList");
 
         FirestoreRecyclerOptions<SellingBook> options = new FirestoreRecyclerOptions.Builder<SellingBook>()
                 .setQuery(query, SellingBook.class)
                 .build();
 
         adapter = new FirestoreRecyclerAdapter<SellingBook, SellingBooksViewHolder>(options) {
+            @NotNull
             @Override
-            public SellingBooksViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            public SellingBooksViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.row_book_list, parent, false);
                 return new SellingBooksViewHolder(view);
             }
 
+            @SuppressLint("DefaultLocale")
             @Override
-            protected void onBindViewHolder(SellingBooksViewHolder viewHolder, int position, final SellingBook model) {
-                viewHolder.row_price.setText(model.getSellingprice()+" INR");
-                viewHolder.row_quantity.setText(model.getQuantities()+"pcs available");
+            protected void onBindViewHolder(@NotNull SellingBooksViewHolder viewHolder, int position, @NotNull final SellingBook model) {
+                viewHolder.row_price.setText(String.format("%d INR", model.getSellingprice()));
+                viewHolder.row_quantity.setText(String.format("%dpcs available", model.getQuantities()));
                 final String final_query=model.getBookid();
                 viewHolder.row_title.setText(model.getTitle());
                 viewHolder.row_author.setText(model.getAuthor());
                 //load image from internet and set it into imageView using Glide
-                Glide.with(getActivity()).load(model.getThumbnail()).placeholder(R.drawable.loading_shape).dontAnimate().into(viewHolder.row_thumbnail);
+                Glide.with(requireActivity()).load(model.getThumbnail()).placeholder(R.drawable.loading_shape).dontAnimate().into(viewHolder.row_thumbnail);
 
                 viewHolder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -116,13 +120,13 @@ public class HomecFragment extends Fragment {
         };
     }
 
-    private class SellingBooksViewHolder extends RecyclerView.ViewHolder {
+    private static class SellingBooksViewHolder extends RecyclerView.ViewHolder {
         View mView;
         ImageView row_thumbnail;
         LinearLayout container;
         TextView row_title,row_author,row_price,row_quantity;
 
-        public SellingBooksViewHolder(@NonNull View itemView) {
+        SellingBooksViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
             container=mView.findViewById(R.id.container);

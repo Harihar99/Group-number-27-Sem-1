@@ -31,15 +31,13 @@ import com.google.firebase.firestore.Query;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SlideshowFragment extends Fragment {
 
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView recyler_order_filter_s;
     private FirestoreRecyclerAdapter adapter;
-    FirebaseAuth firebaseAuth;
-    private Query query;
-    private Spinner spinner;
     private String filter,bookname;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,10 +46,10 @@ public class SlideshowFragment extends Fragment {
         final SwipeRefreshLayout pullToRefresh = root.findViewById(R.id.pullToRefreshfilter);
         recyler_order_filter_s = root.findViewById(R.id.recyler_order_filter_s);
         firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        final String current_user_id = firebaseAuth.getCurrentUser().getUid();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        final String current_user_id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         //spinner
-        spinner = root.findViewById(R.id.orderfilter);
+        Spinner spinner = root.findViewById(R.id.orderfilter);
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("All");
         arrayList.add("Order placed");
@@ -92,6 +90,7 @@ public class SlideshowFragment extends Fragment {
 
     private void showcurrentorder(String filter,String userid)
     {
+        Query query;
         if(filter.equals("All"))
         {
             query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid);
@@ -110,6 +109,7 @@ public class SlideshowFragment extends Fragment {
                 .build();
 
         adapter = new FirestoreRecyclerAdapter<Order, FiltersViewHolder>(options) {
+            @NotNull
             @Override
             public FiltersViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
@@ -119,7 +119,7 @@ public class SlideshowFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NotNull FiltersViewHolder viewHolder, int position, Order model) {
+            protected void onBindViewHolder(@NotNull FiltersViewHolder viewHolder, int position, @NotNull Order model) {
                 //get id and query to set book name and author
 
                 String status=String.valueOf(model.getStatus());
@@ -138,7 +138,7 @@ public class SlideshowFragment extends Fragment {
                 viewHolder.row_bb.setText(bookname);
                 viewHolder.row_add.setText(model.getAddress());
                 viewHolder.row_orderupdate.setText(model.getUpdatedat());
-                viewHolder.row_add.setText("at "+address.substring(0,10)+" . . . ");
+                viewHolder.row_add.setText(String.format("at %s . . . ", address.substring(0, 10)));
                 viewHolder.row_ostatus.setText(status);
             }
         };
@@ -146,7 +146,7 @@ public class SlideshowFragment extends Fragment {
         recyler_order_filter_s.setAdapter(adapter);
     }
 
-    public class FiltersViewHolder extends RecyclerView.ViewHolder {
+    public static class FiltersViewHolder extends RecyclerView.ViewHolder {
         View mView;
         LinearLayout container; //row_filter_s_list
         TextView row_ostatus,row_bb,row_orderupdate,row_add;

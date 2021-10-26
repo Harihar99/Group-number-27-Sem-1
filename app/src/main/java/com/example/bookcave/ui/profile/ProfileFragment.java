@@ -25,16 +25,15 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
-    private LinearLayout linearl0,linearl2,linearl3,linearl4,linearl5,linearl6,linearl7;
+    private LinearLayout linearl2;
     private TextView profileName;
-    //Firebase
-    private FirebaseAuth fAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String userid;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,16 +42,17 @@ public class ProfileFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
         profileName = root.findViewById(R.id.profileName);
-        linearl0=root.findViewById(R.id.linearl0);
-        linearl3=root.findViewById(R.id.linearl3);
-        linearl4=root.findViewById(R.id.linearl4);
-        linearl5=root.findViewById(R.id.linearl5);
-        linearl6=root.findViewById(R.id.linearl6);
-        linearl7=root.findViewById(R.id.linearl7);
+        LinearLayout linearl0 = root.findViewById(R.id.linearl0);
+        LinearLayout linearl3 = root.findViewById(R.id.linearl3);
+        LinearLayout linearl4 = root.findViewById(R.id.linearl4);
+        LinearLayout linearl5 = root.findViewById(R.id.linearl5);
+        LinearLayout linearl6 = root.findViewById(R.id.linearl6);
+        LinearLayout linearl7 = root.findViewById(R.id.linearl7);
 
         //Checked signed
-        fAuth = FirebaseAuth.getInstance();
-        userid = fAuth.getCurrentUser().getUid();
+        //Firebase
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        String userid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         DocumentReference typeref = db.collection("Users").document(userid);
         typeref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -117,7 +117,7 @@ public class ProfileFragment extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent=new Intent(getActivity(), CustomerLogin.class);
                 startActivity(intent);
-                getActivity().finish();
+                requireActivity().finish();
             }
         });
         return root;

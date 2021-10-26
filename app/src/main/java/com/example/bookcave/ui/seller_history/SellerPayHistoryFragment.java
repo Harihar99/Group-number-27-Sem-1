@@ -26,13 +26,13 @@ import com.google.firebase.firestore.Query;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class SellerPayHistoryFragment extends Fragment {
 
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView recyler_payment_history_s;
     private FirestoreRecyclerAdapter adapter;
-    FirebaseAuth firebaseAuth;
-    private Query query;
     private String cusname;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,8 +41,8 @@ public class SellerPayHistoryFragment extends Fragment {
         final SwipeRefreshLayout pullToRefresh = root.findViewById(R.id.pullToRefreshspayhis);
         recyler_payment_history_s = root.findViewById(R.id.recyler_payment_history_s);
         firebaseFirestore=FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
-        final String current_user_id = firebaseAuth.getCurrentUser().getUid();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        final String current_user_id = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         showsellerpayhis(current_user_id);
         recyler_payment_history_s.setHasFixedSize(true);
         recyler_payment_history_s.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -59,15 +59,16 @@ public class SellerPayHistoryFragment extends Fragment {
         return root;
     }
 
-    public void showsellerpayhis(String userid)
+    private void showsellerpayhis(String userid)
     {
-        query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid",userid);
+        Query query = firebaseFirestore.collection("Orders").whereEqualTo("sellerid", userid);
 
         FirestoreRecyclerOptions<Order> options = new FirestoreRecyclerOptions.Builder<Order>()
                 .setQuery(query, Order.class)
                 .build();
 
         adapter = new FirestoreRecyclerAdapter<Order, PaymentsViewHolder>(options) {
+            @NotNull
             @Override
             public PaymentsViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext())
@@ -77,36 +78,37 @@ public class SellerPayHistoryFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NotNull PaymentsViewHolder viewHolder, int position, Order model) {
+            protected void onBindViewHolder(@NotNull final PaymentsViewHolder viewHolder, int position, @NotNull Order model) {
                 //get id and query to set book name and author
-                viewHolder.row_amount.setText("+ "+String.valueOf(model.getPrice())+" ₹");
+                viewHolder.row_amount.setText(String.format("+ %s ₹", String.valueOf(model.getPrice())));
                 viewHolder.row_paidon.setText(String.valueOf(model.getUpdatedat()));
                 String status=String.valueOf(model.getStatus());
                 String accept=String.valueOf(model.getAccepted());
                 if(status.equals("Order delivered"))
                 {
-                    viewHolder.row_pstatus.setText("Received");
+                    viewHolder.row_pstatus.setText(R.string.recevied);
                 }else
-                {viewHolder.row_pstatus.setText("to be received");}
+                {viewHolder.row_pstatus.setText(R.string.tobereceived);}
                 if(accept.equals("2"))
                 {
-                    viewHolder.row_pstatus.setText("Order rejected");
+                    viewHolder.row_pstatus.setText(R.string.rejectedorder);
                 }
                 DocumentReference docRef1 = firebaseFirestore.collection("Users").document(model.getCustomerid());
                 docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) { cusname = documentSnapshot.getString("firstname")+" "+documentSnapshot.getString("lastname"); }
+                        if (documentSnapshot.exists()) { cusname = documentSnapshot.getString("firstname")+" "+documentSnapshot.getString("lastname");
+                            viewHolder.row_for.setText(String.format("by %s", cusname));}
                     }
                 });
-                viewHolder.row_for.setText("by "+cusname);
+
             }
         };
         adapter.startListening();
         recyler_payment_history_s.setAdapter(adapter);
     }
 
-    public class PaymentsViewHolder extends RecyclerView.ViewHolder {
+    public static class PaymentsViewHolder extends RecyclerView.ViewHolder {
         View mView;
         LinearLayout container; //row_payment_cus_list
         TextView row_amount,row_paidon,row_for,row_pstatus;

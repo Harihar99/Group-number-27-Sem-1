@@ -73,13 +73,13 @@ public class UpdateOrder extends AppCompatActivity {
                     bookid = documentSnapshot.getString("bookid");
 
                     sotp.setText(String.valueOf(otp));
-                    stotalamount.setText("Total Amount: ₹ "+String.valueOf(ta));
+                    stotalamount.setText(String.format("Total Amount: ₹ %s", String.valueOf(ta)));
                     spin.setText(pc);
                     saddress.setText(ad);
                     semail.setText(mailid);
                     sphno.setText(phno);
                     sorderon.setText(oa);
-                    sstatus.setText(s+": ");
+                    sstatus.setText(String.format("%s: ", s));
                     getname();
                 }
             }

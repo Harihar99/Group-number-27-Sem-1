@@ -14,11 +14,11 @@ public class Book {
     private int pageCount;
     private String mUrl;
 
-    public String getmUrl() {
+    String getmUrl() {
         return mUrl;
     }
 
-    public String getmIsbn() {
+    String getmIsbn() {
         return mIsbn;
     }
 
@@ -30,19 +30,19 @@ public class Book {
         return mTitle;
     }
 
-    public String getAuthors() {
+    String getAuthors() {
         return mAuthors;
     }
 
-    public String getPublishedDate() {
+    String getPublishedDate() {
         return mPublishedDate;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return mDescription;
     }
 
-    public String getCategories() {
+    String getCategories() {
         return mCategories;
     }
 
@@ -50,11 +50,11 @@ public class Book {
         return mThumbnail;
     }
 
-    public String getBuy() {
+    String getBuy() {
         return mBuy;
     }
 
-    public String getPreview() {
+    String getPreview() {
         return mPreview;
     }
 

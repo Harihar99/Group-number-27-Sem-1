@@ -1,4 +1,9 @@
 # BookCave
 Android app to sell and rent books in a city. Done as a project for MCA Sem-I
 
-it's still WORK IN PROGRESS.
+Group no 27
+- Atharva Ikhar
+- Harshada Mali
+- Harihar Aparmarjane
+- Unmesh Mirajkar
+

@@ -71,7 +71,7 @@ public class UpdateOrder extends AppCompatActivity {
                     String otp = documentSnapshot.getString("otp");
                     int ta = documentSnapshot.getLong("totalamount").intValue();
                     bookid = documentSnapshot.getString("bookid");
-
+                    bookname = documentSnapshot.getString("bname");
                     sotp.setText(String.valueOf(otp));
                     stotalamount.setText(String.format("Total Amount: ₹ %s", String.valueOf(ta)));
                     spin.setText(pc);
@@ -80,6 +80,7 @@ public class UpdateOrder extends AppCompatActivity {
                     sphno.setText(phno);
                     sorderon.setText(oa);
                     sstatus.setText(String.format("%s: ", s));
+                    sbookname.setText(bookname);
                     getname();
                 }
             }
@@ -129,18 +130,6 @@ public class UpdateOrder extends AppCompatActivity {
 
     public void getname()
     {
-        db.collection("SellingList").whereEqualTo("bookid",bookid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        bookname = document.getString("title");
-
-                    }
-                }
-            }
-        });
-
         db.collection("Users").whereEqualTo("email",mailid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -151,7 +140,7 @@ public class UpdateOrder extends AppCompatActivity {
                 }
             }
         });
-        sbookname.setText(bookname);
+
         sname.setText(fullname);
     }
 }

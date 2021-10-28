@@ -70,7 +70,8 @@ public class ViewOrderCustomer extends AppCompatActivity {
                     String otp = documentSnapshot.getString("otp");
                     int ta = Objects.requireNonNull(documentSnapshot.getLong("totalamount")).intValue();
                     bookid = documentSnapshot.getString("bookid");
-
+                    bookname = documentSnapshot.getString("bname");
+                    sbookname.setText(bookname);
                     sotp.setText(String.valueOf(otp));
                     stotalamount.setText(String.format("Total amount: %s", String.valueOf(ta)));
                     spin.setText(pc);
@@ -111,19 +112,6 @@ public class ViewOrderCustomer extends AppCompatActivity {
     }
     public void getdata()
     {
-        //For book details
-        db.collection("SellingList").whereEqualTo("bookid",bookid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        bookname = document.getString("title");
-                        thumbnail = document.getString("thumbnail");
-                    }
-                }
-            }
-        });
-
         db.collection("Users").whereEqualTo("email",mailid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -134,7 +122,7 @@ public class ViewOrderCustomer extends AppCompatActivity {
                 }
             }
         });
-        sbookname.setText(bookname);
+
         sname.setText(fullname);
     }
 }

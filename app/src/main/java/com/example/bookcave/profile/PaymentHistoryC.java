@@ -17,13 +17,9 @@ import com.example.bookcave.R;
 import com.example.bookcave.extras.Order;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -93,18 +89,7 @@ public class PaymentHistoryC extends AppCompatActivity {
                     viewHolder.row_pstatus.setText("To be paid");
                 }
                 //For book details
-                firebaseFirestore.collection("SellingList").whereEqualTo("bookid",model.getBookid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                reason = document.getString("title");
-                                viewHolder.row_for.setText(String.format("For: %s", reason));
-                            }
-                        }
-                    }
-                });
-
+                viewHolder.row_for.setText(model.getBname());
             }
         };
         adapter.startListening();

@@ -27,14 +27,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -126,19 +124,7 @@ public class HomeFragment extends Fragment {
                 viewHolder.row_add.setText(model.getAddress());
                 String status=String.valueOf(model.getStatus());
                 final String orderid = String.valueOf(model.getOrderid());
-
-                //For book details
-                firebaseFirestore.collection("SellingList").whereEqualTo("bookid",model.getBookid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                bookname = document.getString("title");
-                                viewHolder.row_bookname.setText(String.format("For: %s", bookname));
-                            }
-                        }
-                    }
-                });
+                viewHolder.row_bookname.setText(String.format("For: %s", model.getBname()));
 
 
                 viewHolder.acc_order.setOnClickListener(new View.OnClickListener() {

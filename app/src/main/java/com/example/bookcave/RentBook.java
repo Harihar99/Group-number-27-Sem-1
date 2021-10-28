@@ -166,6 +166,7 @@ public class RentBook extends AppCompatActivity {
                 //book info can be taken from SellingList
                 //customer info
                 order.put("address", oaddress.getText().toString().trim());
+                order.put("bname", obname.getText().toString().trim());
                 order.put("pincode", opin.getText().toString().trim());
                 order.put("phno", onumber.getText().toString().trim());
                 order.put("email", mailid);

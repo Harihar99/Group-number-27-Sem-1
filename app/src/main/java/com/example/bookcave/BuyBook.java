@@ -150,6 +150,7 @@ public class BuyBook extends AppCompatActivity {
                     order.put("address", oaddress.getText().toString().trim());
                     order.put("pincode", opin.getText().toString().trim());
                     order.put("phno", onumber.getText().toString().trim());
+                    order.put("bname", obname.getText().toString().trim());
                     order.put("email", mailid);
                     //order info
                     order.put("type", "Buy");

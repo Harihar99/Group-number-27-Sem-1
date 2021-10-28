@@ -21,10 +21,7 @@ import com.example.bookcave.R;
 import com.example.bookcave.extras.Order;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -125,20 +122,10 @@ public class SlideshowFragment extends Fragment {
                 String status=String.valueOf(model.getStatus());
                 final String orderid = String.valueOf(model.getOrderid());
                 final String address = model.getAddress();
-
-
-                //For book details
-                DocumentReference docRef1 = firebaseFirestore.collection("Orders").document(model.getBookid());
-                docRef1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) { bookname = documentSnapshot.getString("title"); }
-                    }
-                });
-                viewHolder.row_bb.setText(bookname);
+                viewHolder.row_bb.setText(model.getBname());
                 viewHolder.row_add.setText(model.getAddress());
                 viewHolder.row_orderupdate.setText(model.getUpdatedat());
-                viewHolder.row_add.setText(String.format("at %s . . . ", address.substring(0, 10)));
+                viewHolder.row_add.setText(String.format("at %s . . . ", address.substring(0, 5)));
                 viewHolder.row_ostatus.setText(status);
             }
         };

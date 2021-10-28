@@ -16,6 +16,7 @@ public class Order {
 
     //additional details
     private String type;
+    private String bname;
     private int price;
     private int deliverycharge;
     private int totalamount;
@@ -96,6 +97,14 @@ public class Order {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getBname() {
+        return bname;
+    }
+
+    public void setBname(String bname) {
+        this.bname = bname;
     }
 
     public int getPrice() {

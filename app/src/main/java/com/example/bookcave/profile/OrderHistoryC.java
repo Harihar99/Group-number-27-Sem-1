@@ -91,13 +91,14 @@ public class OrderHistoryC extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 bn = document.getString("title");
                                 ba = document.getString("author");
-                                viewHolder.row_bname.setText(bn);
+
                                 viewHolder.row_bauthor.setText(ba);
                             }
                         }
                     }
                 });
                 orderid=model.getOrderid();
+                viewHolder.row_bname.setText(model.getBname());
                 viewHolder.row_bstatus.setText(model.getStatus());
                 viewHolder.row_bprice.setText(String.valueOf(model.getPrice()));
                 viewHolder.row_updatedon.setText(String.valueOf(model.getUpdatedat()));
